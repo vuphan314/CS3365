@@ -3,6 +3,5 @@
     
     <string name="status_vacant">vacant</string>
     <string name="status_occupied">occupied</string>
-
     <string name="status_unknown">unknown</string>
 </resources>
