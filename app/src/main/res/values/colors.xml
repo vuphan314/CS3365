@@ -10,6 +10,5 @@
 
     <color name="colorVacant">#ffffffff</color>
     <color name="colorOccupied">#ff00ff00</color>
-    <color name="colorUnknown">#FF4081</color>
-    <!--<color name="colorUnknown">#ff888888</color>-->
+    <color name="colorUnknown">#ff888888</color>
 </resources>
