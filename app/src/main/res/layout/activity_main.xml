@@ -9,8 +9,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="team2.shattlebip.MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/boards"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ShattleBip" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Board: Player1" />
+
+        <GridView
+            android:id="@+id/gridView_board1"
+            style="@style/StyleGridViewBoard"></GridView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Board: Player2" />
+
+        <GridView
+            android:id="@+id/gridView_board2"
+            style="@style/StyleGridViewBoard"></GridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Control" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ARRANGE" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BATTLE" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESTART" />
+    </LinearLayout>
 </RelativeLayout>

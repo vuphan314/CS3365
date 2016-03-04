@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="StyleGridViewBoard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:verticalSpacing">@dimen/cells_gap_length</item>
+        <item name="android:horizontalSpacing">@dimen/cells_gap_length</item>
+        <item name="android:numColumns">@integer/board_side_cells_count</item>
+        <item name="android:columnWidth">@dimen/board_cell_side_length</item>
+        <item name="android:stretchMode">none</item>
+    </style>
+
+    <style name="StyleButtonBoardCell">
+        <item name="android:layout_width">@dimen/board_cell_side_length</item>
+        <item name="android:layout_height">@dimen/board_cell_side_length</item>
+    </style>
+
 </resources>
