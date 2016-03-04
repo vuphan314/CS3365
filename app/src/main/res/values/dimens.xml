@@ -3,5 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="board_cell_side_length">20dp</dimen>
+    <dimen name="board_cell_side_length">15dp</dimen>
+    <dimen name="cells_gap_length">1dp</dimen>
 </resources>
