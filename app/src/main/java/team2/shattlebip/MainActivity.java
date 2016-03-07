@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         inflateBoard(1);
         inflateBoard(2);
 
-        gameState = new GameState();
+        gameState = new GameState(true);
     }
 
     public void inflateBoard(int playerNum) {
@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initializeBoard(int playerNum) {
-        String boardCellsStatus;
+        BoardCellStatus boardCellsStatus;
         for (int i = 0; i < Math.pow(getResources().getInteger(R.integer.board_side_cells_count), 2); i++) {
             if (playerNum == 1)
-                boardCellsStatus = getResources().getString(R.string.status_vacant);
+                boardCellsStatus = BoardCellStatus.Empty;
             else
-                boardCellsStatus = getResources().getString(R.string.status_unknown);
+                boardCellsStatus = BoardCellStatus.Hidden;
             BoardCell boardCell = new BoardCell(boardCellsStatus);
             adapterBoard.add(boardCell);
         }
