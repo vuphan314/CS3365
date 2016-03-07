@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     GameState gameState;
-    Button buttonArrange;
+    Button buttonArrange, buttonBattle;
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
 
@@ -24,38 +24,35 @@ public class MainActivity extends AppCompatActivity {
 
         gameState = new GameState(getString(R.string.game_stage_initialized), -1);
         buttonArrange = (Button) findViewById(R.id.button_arrange);
+        buttonBattle = (Button) findViewById(R.id.button_battle);
         gridViewBoard1 = (GridView) findViewById(R.id.gridViewBoard1);
         gridViewBoard2 = (GridView) findViewById(R.id.gridViewBoard2);
         adapterBoard1 = new AdapterBoard(this, new ArrayList<BoardCell>());
         adapterBoard2 = new AdapterBoard(this, new ArrayList<BoardCell>());
 
-        initializeGame();
-
+        initialize();
         arrange();
+        battle();
     }
 
-    public void initializeGame() {
-        inflateBoard(1);
-        inflateBoard(2);
-        arrange2();
+    public void initialize() {
+        initializeBoard(1);
+        initializeBoard(2);
+        letP2arrange();
         toastStage();
     }
 
-    public void inflateBoard(int playerNum) {
-        getGridViewBoard(playerNum).setAdapter(getAdapterBoard(playerNum));
-        initializeBoard(playerNum);
-    }
-
     public void initializeBoard(int playerNum) {
+        getGridViewBoard(playerNum).setAdapter(getAdapterBoard(playerNum));
         String boardCellsStatus;
         for (int i = 0; i < Math.pow(getResources().getInteger(R.integer.board_side_cells_count), 2); i++) {
-            boardCellsStatus = getResources().getString(R.string.board_cell_status_vacant);
+            boardCellsStatus = getString(R.string.board_cell_status_vacant);
             BoardCell boardCell = new BoardCell(playerNum, boardCellsStatus);
             getAdapterBoard(playerNum).add(boardCell);
         }
     }
 
-    public void arrange2() {
+    public void letP2arrange() {
         Random random = new Random();
         int cell1 = random.nextInt(4);
         for (int i = 0; i < 2; i++) {
@@ -71,20 +68,66 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameState.gameStage = getString(R.string.game_stage_arranging);
                 toastStage();
-
-                gridViewBoard1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
-                        if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_vacant)))
-                            boardCell.boardCellStatus = getString(R.string.board_cell_status_occupied);
-                        else
-                            boardCell.boardCellStatus = getString(R.string.board_cell_status_vacant);
-                        adapterBoard1.notifyDataSetChanged();
-                    }
-                });
+                letP1arrange();
             }
         });
+    }
+
+    public void letP1arrange() {
+        gridViewBoard1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
+                if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_vacant)))
+                    boardCell.boardCellStatus = getString(R.string.board_cell_status_occupied);
+                else
+                    boardCell.boardCellStatus = getString(R.string.board_cell_status_vacant);
+                adapterBoard1.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void battle() {
+        buttonBattle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonArrange.setOnClickListener(null);
+                gridViewBoard1.setOnItemClickListener(null);
+
+                gameState.gameStage = getString(R.string.game_stage_battling);
+                gameState.turnNum = 1;
+                toastStage();
+
+                letP1attack();
+            }
+        });
+    }
+
+    public void letP1attack() {
+        gridViewBoard2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
+                attackCell(boardCell);
+                adapterBoard2.notifyDataSetChanged();
+                letP2attack();
+            }
+        });
+    }
+
+    public void letP2attack() {
+        Random random = new Random();
+        int boardCellsNum = (int) Math.pow(getResources().getInteger(R.integer.board_side_cells_count), 2);
+        BoardCell boardCell = adapterBoard1.getItem(random.nextInt(boardCellsNum));
+        attackCell(boardCell);
+        adapterBoard1.notifyDataSetChanged();
+    }
+
+    public void attackCell(BoardCell boardCell) {
+        if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied)))
+            boardCell.boardCellStatus = getString(R.string.board_cell_status_hit);
+        if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_vacant)))
+            boardCell.boardCellStatus = getString(R.string.board_cell_status_missed);
     }
 
     public void toastStage() {

@@ -32,9 +32,9 @@ public class AdapterBoard extends ArrayAdapter<BoardCell> {
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorHit));
         else if (boardCell.boardCellStatus.equals(getContext().getResources().getString(R.string.board_cell_status_missed)))
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorMissed));
-//TODO Vu: recomment
-//        else if (boardCell.playerNum == 2)
-//            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
+
+        else if (boardCell.playerNum == 2)
+            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
 
         else if (boardCell.boardCellStatus.equals(getContext().getResources().getString(R.string.board_cell_status_vacant)))
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));
