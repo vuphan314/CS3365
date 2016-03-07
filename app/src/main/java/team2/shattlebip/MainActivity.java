@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     GridView gridViewBoard;
     AdapterBoard adapterBoard;
+    GameState gameState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
         inflateBoard(1);
         inflateBoard(2);
+
+        gameState = new GameState();
     }
 
     public void inflateBoard(int playerNum) {
