@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     int numCells1side, numCells1board;
     GameState gameState;
+    TextView textViewGameStage;
     Button buttonArrange, buttonBattle, buttonRestart;
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         numCells1side = getResources().getInteger(R.integer.board_side_cells_count);
         numCells1board = (int) Math.pow(numCells1side, 2);
         gameState = new GameState(getString(R.string.game_stage_initialized));
+        textViewGameStage = (TextView) findViewById(R.id.text_view_game_stage);
         buttonArrange = (Button) findViewById(R.id.button_arrange);
         buttonBattle = (Button) findViewById(R.id.button_battle);
         buttonRestart = (Button) findViewById(R.id.button_restart);
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame() {
         gameState.gameStage = getString(R.string.game_stage_initialized);
-        toastStage();
+        notifyGameStage();
 
         createBoard(1);
         createBoard(2);
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gameState.gameStage = getString(R.string.game_stage_arranging);
-                toastStage();
+                notifyGameStage();
 
                 letP1arrange();
 
@@ -102,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gameState.gameStage = getString(R.string.game_stage_battling);
-                toastStage();
+                notifyGameStage();
 
                 buttonArrange.setOnClickListener(null);
                 gridViewBoard1.setOnItemClickListener(null);
@@ -143,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gameState.gameStage = getString(R.string.game_stage_initialized);
-                toastStage();
+                notifyGameStage();
 
                 buttonArrange.setOnClickListener(null);
                 gridViewBoard1.setOnItemClickListener(null);
@@ -166,8 +169,10 @@ public class MainActivity extends AppCompatActivity {
         adapterBoard.notifyDataSetChanged();
     }
 
-    public void toastStage() {
-        Toast.makeText(this, gameState.gameStage, Toast.LENGTH_SHORT).show();
+    public void notifyGameStage() {
+        String message = "Game stage: " + gameState.gameStage;
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        textViewGameStage.setText(message);
     }
 
     public GridView getGridViewBoard(int playerNum) {

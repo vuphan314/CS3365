@@ -10,15 +10,20 @@
     tools:context="team2.shattlebip.MainActivity">
 
     <LinearLayout
-        android:id="@+id/boards"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_game_stage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Board: Player1" />
+            android:text="Your Board" />
 
         <GridView
             android:id="@+id/gridViewBoard1"
@@ -27,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Board: Player2" />
+            android:text="Bot's Board" />
 
         <GridView
             android:id="@+id/gridViewBoard2"
@@ -62,5 +67,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RESTART" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Legend" />
+
+
+        <Button
+            style="@style/StyleButtonLegend"
+            android:background="@color/colorVacant"
+            android:text="@string/board_cell_status_vacant" />
+
+        <Button
+            style="@style/StyleButtonLegend"
+            android:background="@color/colorOccupied"
+            android:text="@string/board_cell_status_occupied" />
+
+        <Button
+            style="@style/StyleButtonLegend"
+            android:background="@color/colorUnknown"
+            android:text="unknown" />
+
+        <Button
+            style="@style/StyleButtonLegend"
+            android:background="@color/colorHit"
+            android:text="@string/board_cell_status_hit" />
+
+        <Button
+            style="@style/StyleButtonLegend"
+            android:background="@color/colorMissed"
+            android:text="@string/board_cell_status_missed" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Each player has a 1x2 ship" />
 </RelativeLayout>
