@@ -27,16 +27,19 @@ public class AdapterBoard extends ArrayAdapter<BoardCell> {
         BoardCell boardCell = getItem(position);
 
         Button button = (Button) view.findViewById(R.id.button_board_cell);
-        if (boardCell.status.equals(getContext().getResources().getString(R.string.status_hit)))
+
+        if (boardCell.boardCellStatus.equals(getContext().getResources().getString(R.string.board_cell_status_hit)))
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorHit));
-        else if (boardCell.status.equals(getContext().getResources().getString(R.string.status_missed)))
+        else if (boardCell.boardCellStatus.equals(getContext().getResources().getString(R.string.board_cell_status_missed)))
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorMissed));
-        else if (boardCell.status.equals(getContext().getResources().getString(R.string.status_vacant)))
-            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));
-        else if (boardCell.status.equals(getContext().getResources().getString(R.string.status_occupied)))
-            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorOccupied));
-        else
+
+        else if (boardCell.playerNum == 2)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
+
+        else if (boardCell.boardCellStatus.equals(getContext().getResources().getString(R.string.board_cell_status_vacant)))
+            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));
+        else
+            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorOccupied));
 
         return view;
     }
