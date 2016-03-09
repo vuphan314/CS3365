@@ -1,24 +1,30 @@
 # SHATTLEBIP
 - battleship-like Android game
 - TTU CS-3365-001 Spring '16 project
-  - team 2: Zach, Paul, Vu
+  - team 2
+    - Zach
+    - Paul
+    - Vu
+      - vu.phan@ttu.edu
 
-# INSTALL
-if you do differently, then the app may not work
+## **INSTALL GUIDE**
 - in Android Studio
-  - `Check out project from Version Control`
-    - `GitHub`
-      - https://github.com/vuphan314/CS3365
-      - `Clone`
-    - `Would you like to open it?`
-      - `No`
-  - `Open an existing Android Studio project`
-    - locate where you cloned the repository
-  - `Unregistered VCS root detected`
-    - `Add root`
-  - checkout applicable branch
-  - `Run 'app'`
-  - `Do you want to uninstall the existing application?`
-    - `OK`
+  - click `Check out project from Version Control`
+    - click `GitHub`
+      - type `https://github.com/vuphan314/CS3365`
+      - click `Clone`
+  - (popup) `Would you like to open it?`
+    - click `Yes`
+      - click `OK`
+  - (popup) `Unregistered VCS root detected`
+    - click `Add root`
+  - click `VCS`/`Git`/`Branches...`
+    - click `Check out Tag or Revision`
+      - type `<tagname>`
+        - for example: `i2d` (iteration 2 draft)
+      - click `OK`
+  - click `Run`/`Run 'app'`
+  - (popup) `Do you want to uninstall the existing application?`
+    - click `OK`
 - on device
   - keep orientation vertical
