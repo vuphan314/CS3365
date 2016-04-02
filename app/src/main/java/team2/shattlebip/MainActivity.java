@@ -13,30 +13,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-//<<<<<<< HEAD
-//    GridView gridViewBoard;
-//    AdapterBoard adapterBoard;
-//    GameState gameState;
-//=======
     int numCells1side, numCells1board;
     GameState gameState;
     TextView textViewGameStage;
     Button buttonArrange, buttonBattle, buttonRestart;
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
-//>>>>>>> tmpvu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//<<<<<<< HEAD
-//        inflateBoard(1);
-//        inflateBoard(2);
-//
-//        gameState = new GameState(true);
-//=======
         numCells1side = getResources().getInteger(R.integer.board_side_cells_count);
         numCells1board = (int) Math.pow(numCells1side, 2);
         gameState = new GameState(getString(R.string.game_stage_initialized));
@@ -51,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         startGame();
         enableGameRestart();
-//>>>>>>> tmpvu
     }
 
     public void startGame() {
@@ -65,25 +52,13 @@ public class MainActivity extends AppCompatActivity {
         enableGameStageArranging();
     }
 
-//<<<<<<< HEAD
-//    public void initializeBoard(int playerNum) {
-//        BoardCellStatus boardCellsStatus;
-//        for (int i = 0; i < Math.pow(getResources().getInteger(R.integer.board_side_cells_count), 2); i++) {
-//            if (playerNum == 1)
-//                boardCellsStatus = BoardCellStatus.Empty;
-//            else
-//                boardCellsStatus = BoardCellStatus.Hidden;
-//            BoardCell boardCell = new BoardCell(boardCellsStatus);
-//            adapterBoard.add(boardCell);
-//=======
     public void createBoard(int playerNum) {
         getGridViewBoard(playerNum).setAdapter(getAdapterBoard(playerNum));
-        String boardCellsStatus;
+        BoardCellStatus boardCellsStatus;
         for (int i = 0; i < numCells1board; i++) {
-            boardCellsStatus = getString(R.string.board_cell_status_vacant);
+            boardCellsStatus = BoardCellStatus.VACANT;
             BoardCell boardCell = new BoardCell(playerNum, boardCellsStatus);
             getAdapterBoard(playerNum).add(boardCell);
-//>>>>>>> tmpvu
         }
     }
 
@@ -92,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         int cell1 = random.nextInt(4);
         for (int i = 0; i < 2; i++) {
             BoardCell boardCell = adapterBoard2.getItem(cell1 + i);
-            boardCell.boardCellStatus = getString(R.string.board_cell_status_occupied);
+            boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
         }
         adapterBoard1.notifyDataSetChanged();
     }
@@ -116,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
-                if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_vacant)))
-                    boardCell.boardCellStatus = getString(R.string.board_cell_status_occupied);
+                if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
+                    boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
                 else
-                    boardCell.boardCellStatus = getString(R.string.board_cell_status_vacant);
+                    boardCell.boardCellStatus = BoardCellStatus.VACANT;
                 adapterBoard1.notifyDataSetChanged();
             }
         });
@@ -160,10 +135,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void attackCell(BoardCell boardCell) {
-        if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied)))
-            boardCell.boardCellStatus = getString(R.string.board_cell_status_hit);
-        if (boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_vacant)))
-            boardCell.boardCellStatus = getString(R.string.board_cell_status_missed);
+        if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED)
+            boardCell.boardCellStatus = BoardCellStatus.HIT;
+        if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
+            boardCell.boardCellStatus = BoardCellStatus.MISSED;
     }
 
     public void enableGameRestart() {
@@ -190,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void clearBoard(int playerNum) {
         AdapterBoard adapterBoard = getAdapterBoard(playerNum);
         for (int i = 0; i < adapterBoard.getCount(); i++)
-            adapterBoard.getItem(i).boardCellStatus = getString(R.string.board_cell_status_vacant);
+            adapterBoard.getItem(i).boardCellStatus = BoardCellStatus.VACANT;
         adapterBoard.notifyDataSetChanged();
     }
 
