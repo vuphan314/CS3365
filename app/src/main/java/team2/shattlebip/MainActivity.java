@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void letP2arrange() {
         Random random = new Random();
         int cell1 = random.nextInt(4);
@@ -105,13 +106,15 @@ public class MainActivity extends AppCompatActivity {
                 notifyGameStage();
 
                 letP1arrange();
+                //enableGameStageBattling();//
 
-                enableGameStageBattling();
+
             }
         });
     }
 
     public void letP1arrange() {
+
         gridViewBoard1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -123,7 +126,94 @@ public class MainActivity extends AppCompatActivity {
                 adapterBoard1.notifyDataSetChanged();
             }
         });
+        checkArrange();
+
     }
+
+    public void checkArrange(){
+        AdapterBoard adapterBoard = adapterBoard1;
+        int c = 0;
+        int d = 0;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                c = c + 1;
+
+            }
+        }
+        if(c==5){
+            if((checkArrange2())||(checkArrange3())){
+                enableGameStageBattling();
+            }
+
+        }
+    }
+
+    public boolean checkArrange2(){
+        AdapterBoard adapterBoard = adapterBoard1;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                BoardCell boardCell2 = adapterBoard1.getItem(i+1);
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                    BoardCell boardCell3 = adapterBoard1.getItem(i+2);
+                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                        BoardCell boardCell4 = adapterBoard1.getItem(i+3);
+                        if(boardCell4.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                            BoardCell boardCell5 = adapterBoard1.getItem(i+4);
+                            if(boardCell5.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                                return true;
+
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
+
+    }
+
+    public boolean checkArrange3(){
+        AdapterBoard adapterBoard = adapterBoard1;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                BoardCell boardCell2 = adapterBoard1.getItem(i+10);
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                    BoardCell boardCell3 = adapterBoard1.getItem(i+20);
+                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                        BoardCell boardCell4 = adapterBoard1.getItem(i+30);
+                        if(boardCell4.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                            BoardCell boardCell5 = adapterBoard1.getItem(i+40);
+                            if(boardCell5.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                                return true;
+
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
+
+    }
+
 
     public void enableGameStageBattling() {
         buttonBattle.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +283,8 @@ public class MainActivity extends AppCompatActivity {
             adapterBoard.getItem(i).boardCellStatus = getString(R.string.board_cell_status_vacant);
         adapterBoard.notifyDataSetChanged();
     }
+
+
 
     public void notifyGameStage() {
         String message = "Game stage: " + gameState.gameStage;
