@@ -1,14 +1,18 @@
 package team2.shattlebip;
 
 /**
- * Created by Zach on 3/6/2016.
+ * Created by Vu on 4/2/2016.
  */
-public class Player
-{
+public class Player {
+    public int playerNum;
 
+    public int shipCount = 1;
 
-    public Player()
-    {
+    public Ship[] ships = new Ship[shipCount];
 
+    public Player(int playerNum) {
+        this.playerNum = playerNum;
+
+        ships[0] = new Ship(playerNum, ShipType.LITTLE_GUY);
     }
 }

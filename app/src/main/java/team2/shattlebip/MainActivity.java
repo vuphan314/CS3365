@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         numCells1side = getResources().getInteger(R.integer.board_side_cells_count);
         numCells1board = (int) Math.pow(numCells1side, 2);
-        gameState = new GameState(getString(R.string.game_stage_initialized));
+        gameState = new GameState(GameStage.INITIALIZED);
         textViewGameStage = (TextView) findViewById(R.id.text_view_game_stage);
         buttonArrange = (Button) findViewById(R.id.button_arrange);
         buttonBattle = (Button) findViewById(R.id.button_battle);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGame() {
-        gameState.gameStage = getString(R.string.game_stage_initialized);
+        gameState.gameStage = GameStage.INITIALIZED;
         notifyGameStage();
 
         createBoard(1);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         buttonArrange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.gameStage = getString(R.string.game_stage_arranging);
+                gameState.gameStage = GameStage.ARRANGING;
                 notifyGameStage();
 
                 letP1arrange();
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         buttonBattle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.gameStage = getString(R.string.game_stage_battling);
+                gameState.gameStage = GameStage.BATTLING;
                 notifyGameStage();
 
                 buttonArrange.setOnClickListener(null);
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.gameStage = getString(R.string.game_stage_initialized);
+                gameState.gameStage = GameStage.INITIALIZED;
                 notifyGameStage();
 
                 buttonArrange.setOnClickListener(null);
