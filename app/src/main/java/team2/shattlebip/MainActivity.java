@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         fleet1 = new Fleet(1);
         fleet2 = new Fleet(2);
-        ship1tmp = fleet1.ships[0];
-        ship2tmp = fleet2.ships[0];
+        ship1tmp = fleet1.ships.get(0);
+        ship2tmp = fleet2.ships.get(0);
 
         startGame();
         enableGameRestart();
@@ -73,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void letP2arrange() {
         Random random = new Random();
-        int cellPos = random.nextInt(1); //todo randomize
-        for (int i = 0; i < ship2tmp.occupancy; i++) {
-            Cell cell = adapterBoard2.getItem(cellPos + i);
+        int randomCellPosition = random.nextInt(1); //todo randomize
+        for (int i = 0; i < ship2tmp.numCells; i++) {
+            Cell cell = adapterBoard2.getItem(randomCellPosition + i);
             cell.cellStatus = CellStatus.OCCUPIED;
-            ship2tmp.cells[i] = cell;
+            ship2tmp.cells.add(cell);
         }
         adapterBoard1.notifyDataSetChanged();
     }
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 cell.cellStatus = CellStatus.OCCUPIED; //todo allow reset ship arrangement
                 adapterBoard1.notifyDataSetChanged();
 
-                ship1tmp.cells[ship1tmp.vacantCellPosition++] = cell;
+                ship1tmp.cells.add(cell);
             }
         });
     }

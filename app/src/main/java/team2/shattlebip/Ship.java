@@ -1,38 +1,41 @@
 package team2.shattlebip;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Vu on 4/2/2016.
  */
 public class Ship {
-    public int vacantCellPosition = 0;
+    public int cellIndex = 0;
     public int numAttacksMade = 0;
     public int numUpgradesMade = 0;
+    public int numUpgradesAllowed = 3;
 
     public int playerNum;
     public ShipType shipType;
 
-    public int occupancy;
+    public int numCells;
     public int numAttacksAllowed;
 
-    public Cell[] cells;
-    public int numUpgradesAllowed = 3;
+    public List<Cell> cells;
 
     public Ship(int playerNum, ShipType shipType) {
         this.playerNum = playerNum;
         this.shipType = shipType;
         setShipTypeDependentFields();
-        cells = new Cell[occupancy];
+        cells = new ArrayList<>(numCells);
     }
 
     void setShipTypeDependentFields() {
         if (shipType == ShipType.LITTLE_GUY) {
-            occupancy = 2;
+            numCells = 2;
             numAttacksAllowed = 1;
         } else if (shipType == ShipType.MIDDLE_MAN) {
-            occupancy = 3;
+            numCells = 3;
             numAttacksAllowed = 2;
         } else {
-            occupancy = 5;
+            numCells = 5;
             numAttacksAllowed = 3;
         }
     }
@@ -67,11 +70,9 @@ public class Ship {
     }
 
     public boolean isAlive() {
-        for (int i = 0; i < occupancy; i++) {
-            Cell cell = cells[i];
+        for (Cell cell : cells)
             if (cell.cellStatus == CellStatus.OCCUPIED)
                 return true;
-        }
         return false;
     }
 }
