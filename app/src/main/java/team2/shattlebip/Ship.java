@@ -4,17 +4,23 @@ package team2.shattlebip;
  * Created by Vu on 4/2/2016.
  */
 public class Ship {
+    public int cellPosition = 0;
+    public int upgradeCount = 0;
+
     public int playerNum;
     public ShipType shipType;
     public int occupancy;
     public int bulletCount;
-
-    public int upgradeCount = 0;
-    public BoardCell[] boardCells = new BoardCell[occupancy];
+    public BoardCell[] boardCells;
 
     public Ship(int playerNum, ShipType shipType) {
         this.playerNum = playerNum;
         this.shipType = shipType;
+        setOccupancyAndBulletCount();
+        boardCells = new BoardCell[occupancy];
+    }
+
+    void setOccupancyAndBulletCount() {
         if (shipType == ShipType.LITTLE_GUY) {
             occupancy = 2;
             bulletCount = 1;
@@ -32,5 +38,14 @@ public class Ship {
             bulletCount++;
             upgradeCount++;
         }
+    }
+
+    public boolean isAlive() {
+        for (int i = 0; i < occupancy; i++) {
+            BoardCell boardCell = boardCells[i];
+            if (boardCell.status == BoardCellStatus.OCCUPIED)
+                return true;
+        }
+        return false;
     }
 }

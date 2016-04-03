@@ -5,10 +5,10 @@ package team2.shattlebip;
  */
 public class BoardCell {
     public int playerNum;
-    public BoardCellStatus boardCellStatus;
+    public BoardCellStatus status;
 
-    public BoardCell(int playerNum, BoardCellStatus boardCellStatus) {
+    public BoardCell(int playerNum, BoardCellStatus status) {
         this.playerNum = playerNum;
-        this.boardCellStatus = boardCellStatus;
+        this.status = status;
     }
 }

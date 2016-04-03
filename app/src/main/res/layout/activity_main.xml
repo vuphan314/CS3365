@@ -104,5 +104,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Each player has a 1x2 ship" />
+        android:text="Each player has a 1x5 ship" />
 </RelativeLayout>

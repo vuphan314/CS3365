@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
 
+    Player player1, player2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         gridViewBoard2 = (GridView) findViewById(R.id.gridViewBoard2);
         adapterBoard1 = new AdapterBoard(this, new ArrayList<BoardCell>());
         adapterBoard2 = new AdapterBoard(this, new ArrayList<BoardCell>());
+
+        player1 = new Player(1);
+        player2 = new Player(2);
 
         startGame();
         enableGameRestart();
@@ -63,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void letP2arrange() {
+        Ship ship = player2.ships[0];
         Random random = new Random();
-        int cell1 = random.nextInt(4);
-        for (int i = 0; i < 2; i++) {
-            BoardCell boardCell = adapterBoard2.getItem(cell1 + i);
-            boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
+        int cellPos = random.nextInt(1); //todo randomize
+        for (int i = 0; i < ship.occupancy; i++) {
+            BoardCell boardCell = adapterBoard2.getItem(cellPos + i);
+            boardCell.status = BoardCellStatus.OCCUPIED;
+            ship.boardCells[i] = boardCell;
         }
         adapterBoard1.notifyDataSetChanged();
     }
@@ -91,11 +98,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
-                if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
-                    boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
-                else
-                    boardCell.boardCellStatus = BoardCellStatus.VACANT;
+//                if (boardCell.status == BoardCellStatus.VACANT)
+//                    boardCell.status = BoardCellStatus.OCCUPIED;
+//                else
+//                    boardCell.status = BoardCellStatus.VACANT;
+                boardCell.status = BoardCellStatus.OCCUPIED;
                 adapterBoard1.notifyDataSetChanged();
+
+                Ship ship = player1.ships[0];
+                ship.boardCells[ship.cellPosition++] = boardCell;
             }
         });
     }
@@ -116,29 +127,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void letP1attack() {
+        final Ship ship = player1.ships[0];
         gridViewBoard2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
                 attackCell(boardCell);
                 adapterBoard2.notifyDataSetChanged();
-                letP2attack();
+
+                ship.bulletCount--;
+                toast(Integer.toString(ship.bulletCount));
+
+                if (ship.bulletCount == 0) {
+                    letP2attack();
+                    ship.setOccupancyAndBulletCount();
+                }
+
             }
         });
     }
 
     public void letP2attack() {
         Random random = new Random();
-        BoardCell boardCell = adapterBoard1.getItem(random.nextInt(numCells1board));
-        attackCell(boardCell);
+        for (int i = 0; i < player2.ships[0].bulletCount; i++) {
+            BoardCell boardCell = adapterBoard1.getItem(random.nextInt(numCells1board));
+            attackCell(boardCell);
+        }
         adapterBoard1.notifyDataSetChanged();
     }
 
     public void attackCell(BoardCell boardCell) {
-        if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED)
-            boardCell.boardCellStatus = BoardCellStatus.HIT;
-        if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
-            boardCell.boardCellStatus = BoardCellStatus.MISSED;
+        if (boardCell.status == BoardCellStatus.OCCUPIED)
+            boardCell.status = BoardCellStatus.HIT;
+        if (boardCell.status == BoardCellStatus.VACANT)
+            boardCell.status = BoardCellStatus.MISSED;
     }
 
     public void enableGameRestart() {
@@ -165,13 +187,13 @@ public class MainActivity extends AppCompatActivity {
     public void clearBoard(int playerNum) {
         AdapterBoard adapterBoard = getAdapterBoard(playerNum);
         for (int i = 0; i < adapterBoard.getCount(); i++)
-            adapterBoard.getItem(i).boardCellStatus = BoardCellStatus.VACANT;
+            adapterBoard.getItem(i).status = BoardCellStatus.VACANT;
         adapterBoard.notifyDataSetChanged();
     }
 
     public void notifyGameStage() {
         String message = "Game stage: " + gameState.gameStage;
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        toast(message);
         textViewGameStage.setText(message);
     }
 
@@ -187,5 +209,9 @@ public class MainActivity extends AppCompatActivity {
             return adapterBoard1;
         else
             return adapterBoard2;
+    }
+
+    public void toast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
