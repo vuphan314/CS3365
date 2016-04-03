@@ -4,46 +4,72 @@ package team2.shattlebip;
  * Created by Vu on 4/2/2016.
  */
 public class Ship {
-    public int cellPosition = 0;
-    public int upgradeCount = 0;
+    public int vacantCellPosition = 0;
+    public int numAttacksMade = 0;
+    public int numUpgradesMade = 0;
 
     public int playerNum;
     public ShipType shipType;
+
     public int occupancy;
-    public int bulletCount;
-    public BoardCell[] boardCells;
+    public int numAttacksAllowed;
+
+    public Cell[] cells;
+    public int numUpgradesAllowed = 3;
 
     public Ship(int playerNum, ShipType shipType) {
         this.playerNum = playerNum;
         this.shipType = shipType;
-        setOccupancyAndBulletCount();
-        boardCells = new BoardCell[occupancy];
+        setShipTypeDependentFields();
+        cells = new Cell[occupancy];
     }
 
-    void setOccupancyAndBulletCount() {
+    void setShipTypeDependentFields() {
         if (shipType == ShipType.LITTLE_GUY) {
             occupancy = 2;
-            bulletCount = 1;
+            numAttacksAllowed = 1;
         } else if (shipType == ShipType.MIDDLE_MAN) {
             occupancy = 3;
-            bulletCount = 2;
+            numAttacksAllowed = 2;
         } else {
             occupancy = 5;
-            bulletCount = 3;
+            numAttacksAllowed = 3;
         }
+    }
+
+    public void resetNumAttacksMade() {
+        numAttacksMade = 0;
+    }
+
+    public int getNumAttacksLeft() {
+        return numAttacksAllowed - numAttacksMade;
+    }
+
+    public boolean canAttack() {
+        return getNumAttacksLeft() > 0;
+    }
+
+    public void attack() {
+        numAttacksMade++;
+    }
+
+    public int getNumUpgradesLeft() {
+        return numUpgradesAllowed - numUpgradesMade;
+    }
+
+    boolean canUpgrade() {
+        return getNumUpgradesLeft() > 0;
     }
 
     public void upgrade() {
-        if (upgradeCount < 3) {
-            bulletCount++;
-            upgradeCount++;
-        }
+        numAttacksAllowed++;
+        numUpgradesMade++;
     }
 
     public boolean isAlive() {
         for (int i = 0; i < occupancy; i++) {
-            BoardCell boardCell = boardCells[i];
-            if (boardCell.status == BoardCellStatus.OCCUPIED)
+            Cell cell = cells[i];
+            if (cell.cellStatus == CellStatus.OCCUPIED)
                 return true;
         }
         return false;
