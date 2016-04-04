@@ -7,7 +7,6 @@ import java.util.List;
  * Created by Vu on 4/2/2016.
  */
 public class Ship {
-    //    public int cellIndex = 0;
     public int numCellsAdded = 0;
     public int numAttacksMade = 0;
     public int numUpgradesMade = 0;

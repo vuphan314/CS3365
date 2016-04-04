@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     int numCells1side, numCells1board;
-    GameState gameState;
+    Game game;
     TextView textViewGameStage;
     Button buttonArrange, buttonBattle, buttonRestart, buttonUpgrade;
     GridView gridViewBoard1, gridViewBoard2;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         numCells1side = getResources().getInteger(R.integer.board_side_cells_count);
         numCells1board = (int) Math.pow(numCells1side, 2);
-        gameState = new GameState(GameStage.INITIALIZED);
+        game = new Game(GameStage.INITIALIZED);
         textViewGameStage = (TextView) findViewById(R.id.text_view_game_stage);
         buttonArrange = (Button) findViewById(R.id.button_arrange);
         buttonBattle = (Button) findViewById(R.id.button_battle);
@@ -226,17 +226,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setGameStage(GameStage gameStage) {
-        gameState.gameStage = gameStage;
-        String msg = "Game stage: " + gameState.gameStage;
+        game.gameStage = gameStage;
+        String msg = "Game stage: " + game.gameStage;
         textViewGameStage.setText(msg);
         describeGameStage();
     }
 
     public void describeGameStage() {
         String msg;
-        if (gameState.gameStage == GameStage.INITIALIZED)
+        if (game.gameStage == GameStage.INITIALIZED)
             msg = "click ARRANGE";
-        else if (gameState.gameStage == GameStage.ARRANGING)
+        else if (game.gameStage == GameStage.ARRANGING)
             msg = "tap cell on your board to arrange your " + fleet1.numShips + " ships";
         else
             msg = "tap cell on bot's board to attack its " + fleet2.numShips + " ships";

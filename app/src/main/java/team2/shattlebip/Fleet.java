@@ -16,11 +16,11 @@ public class Fleet {
     public Fleet(int playerNum) {
         this.playerNum = playerNum;
 
-        Ship ship = new Ship(playerNum, ShipType.BIG_BOY);
-        ships.add(ship);
-        ship = new Ship(playerNum, ShipType.LITTLE_GUY);
+        Ship ship = new Ship(playerNum, ShipType.LITTLE_GUY);
         ships.add(ship);
         ship = new Ship(playerNum, ShipType.MIDDLE_MAN);
+        ships.add(ship);
+        ship = new Ship(playerNum, ShipType.BIG_BOY);
         ships.add(ship);
     }
 
