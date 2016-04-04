@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                 notifyGameStage();
 
                 letP1arrange();
+                checkArrange();
+
                 //enableGameStageBattling();//
 
 
@@ -126,14 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 adapterBoard1.notifyDataSetChanged();
             }
         });
-        checkArrange();
 
     }
 
     public void checkArrange(){
         AdapterBoard adapterBoard = adapterBoard1;
         int c = 0;
-        int d = 0;
         for(int i = 0; i<adapterBoard.getCount(); i++){
             BoardCell boardCell = adapterBoard1.getItem(i);
             if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
@@ -142,32 +142,46 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        if(c==5){
-            if((checkArrange2())||(checkArrange3())){
-                enableGameStageBattling();
+        if(c==10){
+            if(((checkArrangeLH())||(checkArrangeLV()))) {
+                if(((checkArrangeMH())|| (checkArrangeMV()))){
+                    if(((checkArrangeSH())|| (checkArrangeSV()))){
+                        enableGameStageBattling();
+                    }
+                }
             }
 
         }
     }
-
-    public boolean checkArrange2(){
+BoardCell checkL1, checkL2, checkL3, checkL4, checkL5;
+    public boolean checkArrangeLH(){
         AdapterBoard adapterBoard = adapterBoard1;
         for(int i = 0; i<adapterBoard.getCount(); i++){
             BoardCell boardCell = adapterBoard1.getItem(i);
-            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                 BoardCell boardCell2 = adapterBoard1.getItem(i+1);
-                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                     BoardCell boardCell3 = adapterBoard1.getItem(i+2);
-                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                         BoardCell boardCell4 = adapterBoard1.getItem(i+3);
-                        if(boardCell4.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                        if(boardCell4.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                             BoardCell boardCell5 = adapterBoard1.getItem(i+4);
-                            if(boardCell5.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
 
+                            if(boardCell5.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                                checkL1 = adapterBoard1.getItem(i);
+                                checkL2 = adapterBoard1.getItem(i+1);
+                                checkL3 = adapterBoard1.getItem(i+2);
+                                checkL4 = adapterBoard1.getItem(i+3);
+                                checkL5 = adapterBoard1.getItem(i+4);
                                 return true;
 
                             }
@@ -182,29 +196,159 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkArrange3(){
+    public boolean checkArrangeLV(){
         AdapterBoard adapterBoard = adapterBoard1;
         for(int i = 0; i<adapterBoard.getCount(); i++){
             BoardCell boardCell = adapterBoard1.getItem(i);
-            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                 BoardCell boardCell2 = adapterBoard1.getItem(i+10);
-                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                     BoardCell boardCell3 = adapterBoard1.getItem(i+20);
-                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                         BoardCell boardCell4 = adapterBoard1.getItem(i+30);
-                        if(boardCell4.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
+
+                        if(boardCell4.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
 
                             BoardCell boardCell5 = adapterBoard1.getItem(i+40);
-                            if(boardCell5.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))){
 
+                            if(boardCell5.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                                checkL1 = adapterBoard1.getItem(i);
+                                checkL2 = adapterBoard1.getItem(i+10);
+                                checkL3 = adapterBoard1.getItem(i+20);
+                                checkL4 = adapterBoard1.getItem(i+30);
+                                checkL5 = adapterBoard1.getItem(i+40);
                                 return true;
 
                             }
 
                         }
+                    }
+                }
+
+            }
+        }
+        return false;
+
+    }
+BoardCell checkM1, checkM2, checkM3;
+
+    public boolean checkArrangeMH(){
+
+        AdapterBoard adapterBoard = adapterBoard1;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+
+
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                BoardCell boardCell2 = adapterBoard1.getItem(i+1);
+
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                    BoardCell boardCell3 = adapterBoard1.getItem(i+2);
+
+                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                        if((boardCell3 != checkL1)&&(boardCell3 != checkL2)&&(boardCell3 != checkL3)
+                                &&(boardCell3 != checkL4)&&(boardCell3 != checkL5)){
+
+                            checkM1 = adapterBoard1.getItem(i);
+                            checkM2 = adapterBoard1.getItem(i+1);
+                            checkM3 = adapterBoard1.getItem(i+2);
+                            return true;
+                        }
+
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+    public boolean checkArrangeMV(){
+
+        AdapterBoard adapterBoard = adapterBoard1;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                BoardCell boardCell2 = adapterBoard1.getItem(i+10);
+
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                    BoardCell boardCell3 = adapterBoard1.getItem(i+20);
+
+                    if(boardCell3.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                        if((boardCell3 != checkL1)&&(boardCell3 != checkL2)&&(boardCell3 != checkL3)
+                                &&(boardCell3 != checkL4)&&(boardCell3 != checkL5)){
+                            checkM1 = adapterBoard1.getItem(i);
+                            checkM2 = adapterBoard1.getItem(i+10);
+                            checkM3 = adapterBoard1.getItem(i+20);
+                            return true;
+                        }
+
+                    }
+                }
+
+            }
+        }
+        return false;
+
+    }
+
+    public boolean checkArrangeSH(){
+
+        AdapterBoard adapterBoard = adapterBoard1;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                BoardCell boardCell2 = adapterBoard1.getItem(i+1);
+
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                    if((boardCell2 != checkM1)&&(boardCell2 != checkM2)&&(boardCell2 != checkM3)
+                            &&(boardCell2 != checkL1)&&(boardCell2 != checkL2)&&(boardCell2 != checkL3)
+                            &&(boardCell2 != checkL4)&&(boardCell2 != checkL5)){
+
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+
+    }
+
+    public boolean checkArrangeSV(){
+
+        AdapterBoard adapterBoard = adapterBoard1;
+        for(int i = 0; i<adapterBoard.getCount(); i++){
+            BoardCell boardCell = adapterBoard1.getItem(i);
+
+            if(boardCell.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                BoardCell boardCell2 = adapterBoard1.getItem(i+10);
+
+                if(boardCell2.boardCellStatus.equals(getString(R.string.board_cell_status_occupied))) {
+
+                    if((boardCell2 != checkM1)&&(boardCell2 != checkM2)&&(boardCell2 != checkM3)
+                            &&(boardCell2 != checkL1)&&(boardCell2 != checkL2)&&(boardCell2 != checkL3)
+                            &&(boardCell2 != checkL4)&&(boardCell2 != checkL5)){
+
+                        return true;
                     }
                 }
 
