@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by twi on 4/3/2016.
+ * Created by zach on 4/3/2016.
  */
 public class MathModel {
     private static MathModel ourInstance = new MathModel();
@@ -59,7 +59,7 @@ public class MathModel {
         for (int i = 0; i < size; i++)
         {
             int nextY = y - i;
-            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).status == BoardCellStatus.OCCUPIED);
+            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).status == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -77,7 +77,7 @@ public class MathModel {
         for (int i = 0; i < size; i++)
         {
             int nextX = x + i;
-            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).status == BoardCellStatus.OCCUPIED);
+            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).status == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -95,7 +95,7 @@ public class MathModel {
         for (int i = 0; i < size; i++)
         {
             int nextY = y +- i;
-            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).status == BoardCellStatus.OCCUPIED);
+            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).status == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -113,7 +113,7 @@ public class MathModel {
         for (int i = 0; i < size; i++)
         {
             int nextX = x - i;
-            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).status == BoardCellStatus.OCCUPIED);
+            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).status == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -134,6 +134,8 @@ public class MathModel {
         sample.add(1);
         sample.add(2);
         sample.add(3);
+
+        getEmptyCell();
 
         while (!sample.isEmpty())
         {

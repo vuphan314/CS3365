@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         createBoard(1);
         createBoard(2);
 
-        MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
-
         enableGameStageArranging();
     }
 
@@ -76,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 notifyGameStage();
 
                 letP1arrange();
+
+                MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
 
                 enableGameStageBattling();
             }
@@ -166,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
                 clearBoard(1);
                 clearBoard(2);
-                MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
 
                 enableGameStageArranging();
             }
