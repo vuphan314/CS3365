@@ -7,7 +7,8 @@ import java.util.List;
  * Created by Vu on 4/2/2016.
  */
 public class Ship {
-    public int cellIndex = 0;
+    //    public int cellIndex = 0;
+    public int numCellsAdded = 0;
     public int numAttacksMade = 0;
     public int numUpgradesMade = 0;
     public int numUpgradesAllowed = 3;
@@ -40,8 +41,18 @@ public class Ship {
         }
     }
 
-    public void resetNumAttacksMade() {
-        numAttacksMade = 0;
+    public int getNumCellsToAdd() {
+        return numCells - numCellsAdded;
+    }
+
+    public boolean canAddCells() {
+        return getNumCellsToAdd() > 0;
+    }
+
+    public void addCell(Cell cell) {
+        cell.cellStatus = CellStatus.OCCUPIED;
+        cells.add(cell);
+        numCellsAdded++;
     }
 
     public int getNumAttacksLeft() {
@@ -49,10 +60,14 @@ public class Ship {
     }
 
     public boolean canAttack() {
-        return getNumAttacksLeft() > 0;
+        return isAlive() && getNumAttacksLeft() > 0;
     }
 
-    public void attack() {
+    public void attackCell(Cell cell) {
+        if (cell.cellStatus == CellStatus.VACANT)
+            cell.cellStatus = CellStatus.MISSED;
+        if (cell.cellStatus == CellStatus.OCCUPIED)
+            cell.cellStatus = CellStatus.HIT;
         numAttacksMade++;
     }
 
@@ -61,7 +76,7 @@ public class Ship {
     }
 
     boolean canUpgrade() {
-        return getNumUpgradesLeft() > 0;
+        return isAlive() && getNumUpgradesLeft() > 0;
     }
 
     public void upgrade() {
@@ -71,7 +86,7 @@ public class Ship {
 
     public boolean isAlive() {
         for (Cell cell : cells)
-            if (cell.cellStatus == CellStatus.OCCUPIED)
+            if (cell.cellStatus != CellStatus.HIT)
                 return true;
         return false;
     }

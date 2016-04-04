@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Game Controls" />
+            android:text="Controls" />
 
         <Button
             android:id="@+id/button_arrange"
@@ -68,16 +68,16 @@
             android:layout_height="wrap_content"
             android:text="RESTART" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Turn Controls" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Turn Controls" />-->
 
-        <Button
-            android:id="@+id/button_upgrade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UPGRADE" />
+        <!--<Button-->
+            <!--android:id="@+id/button_upgrade"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="UPGRADE" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,9 +111,9 @@
             android:text="@string/board_cell_status_missed" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Each player has a 1x5 ship" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="Each player has a 1x5 ship" />-->
 </RelativeLayout>

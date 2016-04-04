@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     AdapterBoard adapterBoard1, adapterBoard2;
 
     Fleet fleet1, fleet2;
-    Ship ship1tmp, ship2tmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +34,20 @@ public class MainActivity extends AppCompatActivity {
         buttonArrange = (Button) findViewById(R.id.button_arrange);
         buttonBattle = (Button) findViewById(R.id.button_battle);
         buttonRestart = (Button) findViewById(R.id.button_restart);
-        buttonUpgrade = (Button) findViewById(R.id.button_upgrade);
+//        buttonUpgrade = (Button) findViewById(R.id.button_upgrade);
         gridViewBoard1 = (GridView) findViewById(R.id.gridViewBoard1);
         gridViewBoard2 = (GridView) findViewById(R.id.gridViewBoard2);
         adapterBoard1 = new AdapterBoard(this, new ArrayList<Cell>());
         adapterBoard2 = new AdapterBoard(this, new ArrayList<Cell>());
-
-        fleet1 = new Fleet(1);
-        fleet2 = new Fleet(2);
-        ship1tmp = fleet1.ships.get(0);
-        ship2tmp = fleet2.ships.get(0);
 
         startGame();
         enableGameRestart();
     }
 
     public void startGame() {
-        gameState.gameStage = GameStage.INITIALIZED;
-        notifyGameStage();
+        setGameStage(GameStage.INITIALIZED);
+
+        instantiateFleets();
 
         createBoard(1);
         createBoard(2);
@@ -72,22 +67,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void letP2arrange() {
-        Random random = new Random();
-        int randomCellPosition = random.nextInt(1); //todo randomize
-        for (int i = 0; i < ship2tmp.numCells; i++) {
-            Cell cell = adapterBoard2.getItem(randomCellPosition + i);
-            cell.cellStatus = CellStatus.OCCUPIED;
-            ship2tmp.cells.add(cell);
+        //todo randomize
+        for (int i = 0; i < fleet2.numShips; i++) {
+            Ship ship = fleet2.ships.get(i);
+            for (int j = 0; j < ship.numCells; j++) {
+                Cell cell = adapterBoard2.getItem(i * numCells1side + j);
+                cell.cellStatus = CellStatus.OCCUPIED;
+                ship.addCell(cell);
+            }
         }
-        adapterBoard1.notifyDataSetChanged();
     }
 
     public void enableGameStageArranging() {
         buttonArrange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.gameStage = GameStage.ARRANGING;
-                notifyGameStage();
+                setGameStage(GameStage.ARRANGING);
 
                 letP1arrange();
 
@@ -101,10 +96,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cell cell = (Cell) parent.getAdapter().getItem(position);
-                cell.cellStatus = CellStatus.OCCUPIED; //todo allow reset ship arrangement
-                adapterBoard1.notifyDataSetChanged();
 
-                ship1tmp.cells.add(cell);
+                if (fleet1.canAddCell()) {
+                    fleet1.addCell(cell);
+
+                    String msg;
+                    if (fleet1.canAddCell())
+                        msg = fleet1.ships.get(fleet1.numShipsArranged).getNumCellsToAdd() +
+                                " cell(s) left to add to your ship " +
+                                (fleet1.numShipsArranged + 1);
+                    else
+                        msg = "now click BATTLE";
+                    makeToast(msg);
+                }
+
+                adapterBoard1.notifyDataSetChanged();
             }
         });
     }
@@ -113,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
         buttonBattle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.gameStage = GameStage.BATTLING;
-                notifyGameStage();
+                setGameStage(GameStage.BATTLING);
 
                 buttonArrange.setOnClickListener(null);
                 gridViewBoard1.setOnItemClickListener(null);
@@ -129,50 +134,61 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cell cell = (Cell) parent.getAdapter().getItem(position);
-                attackCell(cell);
-                adapterBoard2.notifyDataSetChanged();
 
-                ship1tmp.attack();
-                toast(Integer.toString(ship1tmp.getNumAttacksLeft()));
+                if (fleet1.canAttack()) {
+                    fleet1.attackCell(cell);
 
-                if (!ship1tmp.canAttack()) {
-                    letP2attack();
-                    ship1tmp.resetNumAttacksMade();
+                    String msg;
+                    if (!fleet2.isAlive())
+                        msg = "you won; click RESTART";
+                    else if (fleet1.canAttack()) {
+                        Ship ship = fleet1.getNextShipCanAttack();
+                        msg = ship.getNumAttacksLeft() + " attack(s) left for your ship " +
+                                (fleet1.ships.indexOf(ship) + 1);
+                    } else {
+                        fleet1.resetNumsAttacksMade();
+                        letP2attack();
+                        if (!fleet1.isAlive())
+                            msg = "you lost; click RESTART";
+                        else
+                            msg = "bot done; your turn again";
+                    }
+                    makeToast(msg);
                 }
 
+                adapterBoard2.notifyDataSetChanged();
             }
         });
     }
 
     public void letP2attack() {
         Random random = new Random();
-        while (ship2tmp.canAttack()) {
-            ship2tmp.attack();
-            Cell cell = adapterBoard1.getItem(random.nextInt(numCells1board));
-            attackCell(cell);
-        }
-        ship2tmp.resetNumAttacksMade();
-        adapterBoard1.notifyDataSetChanged();
-    }
+        while (fleet2.canAttack()) {
+            Cell cell;
+            do {
+                cell = adapterBoard1.getItem(random.nextInt(numCells1board));
+            }
+            while (cell.cellStatus == CellStatus.HIT || cell.cellStatus == CellStatus.MISSED);
 
-    public void attackCell(Cell cell) {
-        if (cell.cellStatus == CellStatus.OCCUPIED)
-            cell.cellStatus = CellStatus.HIT;
-        if (cell.cellStatus == CellStatus.VACANT)
-            cell.cellStatus = CellStatus.MISSED;
+            fleet2.attackCell(cell);
+        }
+        fleet2.resetNumsAttacksMade();
+
+        adapterBoard1.notifyDataSetChanged();
     }
 
     public void enableGameRestart() {
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.gameStage = GameStage.INITIALIZED;
-                notifyGameStage();
+                setGameStage(GameStage.INITIALIZED);
 
                 buttonArrange.setOnClickListener(null);
                 gridViewBoard1.setOnItemClickListener(null);
                 buttonBattle.setOnClickListener(null);
                 gridViewBoard2.setOnItemClickListener(null);
+
+                instantiateFleets();
 
                 clearBoard(1);
                 clearBoard(2);
@@ -183,17 +199,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void instantiateFleets() {
+        fleet1 = new Fleet(1);
+        fleet2 = new Fleet(2);
+    }
+
     public void clearBoard(int playerNum) {
         AdapterBoard adapterBoard = getAdapterBoard(playerNum);
         for (int i = 0; i < adapterBoard.getCount(); i++)
             adapterBoard.getItem(i).cellStatus = CellStatus.VACANT;
         adapterBoard.notifyDataSetChanged();
-    }
-
-    public void notifyGameStage() {
-        String message = "Game stage: " + gameState.gameStage;
-        toast(message);
-        textViewGameStage.setText(message);
     }
 
     public GridView getGridViewBoard(int playerNum) {
@@ -210,7 +225,25 @@ public class MainActivity extends AppCompatActivity {
             return adapterBoard2;
     }
 
-    public void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void setGameStage(GameStage gameStage) {
+        gameState.gameStage = gameStage;
+        String msg = "Game stage: " + gameState.gameStage;
+        textViewGameStage.setText(msg);
+        describeGameStage();
+    }
+
+    public void describeGameStage() {
+        String msg;
+        if (gameState.gameStage == GameStage.INITIALIZED)
+            msg = "click ARRANGE";
+        else if (gameState.gameStage == GameStage.ARRANGING)
+            msg = "tap cell on your board to arrange your " + fleet1.numShips + " ships";
+        else
+            msg = "tap cell on bot's board to attack its " + fleet2.numShips + " ships";
+        makeToast(msg);
+    }
+
+    public void makeToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }
