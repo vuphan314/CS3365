@@ -129,45 +129,60 @@ public class MathModel {
     //performs random sampling
     private static void setPlacement(int size)
     {
-        List<Integer> sample = new ArrayList<>(4);
-        sample.add(0);
-        sample.add(1);
-        sample.add(2);
-        sample.add(3);
+        boolean notPlaced = true;
 
-        getEmptyCell();
-
-        while (!sample.isEmpty())
+        while (notPlaced)
         {
-            int i = random.nextInt(sample.size());
-            switch (sample.get(i))
-            {
-                case 0:
-                    if (isNorthValid(size))
-                        setNorthPlacement(size);
-                    else
-                        sample.remove(i);
-                    break;
-                case 1:
-                    if (isEastValid(size))
-                        setEastPlacement(size);
-                    else
-                        sample.remove(i);
-                    break;
-                case 2:
-                    if (isSouthValid(size))
-                        setSouthPlacement(size);
-                    else
-                        sample.remove(i);
-                    break;
-                case 3:
-                    if (isWestValid(size))
-                        setWestPlacement(size);
-                    else
-                        sample.remove(i);
-                    break;
-                default:
-                    break;
+            List<Integer> sample = new ArrayList<>(4);
+            sample.add(0);
+            sample.add(1);
+            sample.add(2);
+            sample.add(3);
+
+            getEmptyCell();
+
+            while (!sample.isEmpty()) {
+                int i = random.nextInt(sample.size());
+                switch (sample.get(i)) {
+                    case 0:
+                        if (isNorthValid(size))
+                        {
+                            setNorthPlacement(size);
+                            notPlaced = false;
+                        }
+                        else
+                            sample.remove(i);
+                        break;
+                    case 1:
+                        if (isEastValid(size))
+                        {
+                            setEastPlacement(size);
+                            notPlaced = false;
+                        }
+                        else
+                            sample.remove(i);
+                        break;
+                    case 2:
+                        if (isSouthValid(size))
+                        {
+                            setSouthPlacement(size);
+                            notPlaced = false;
+                        }
+                        else
+                            sample.remove(i);
+                        break;
+                    case 3:
+                        if (isWestValid(size))
+                        {
+                            setWestPlacement(size);
+                            notPlaced = false;
+                        }
+                        else
+                            sample.remove(i);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
