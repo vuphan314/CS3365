@@ -5,8 +5,20 @@ package team2.shattlebip;
  */
 public class GameState {
     public GameStage gameStage;
+    private static GameState ourInstance;
+
+    private GameState()
+    {
+
+    }
 
     public GameState(GameStage gameStage) {
         this.gameStage = gameStage;
+    }
+
+    public static GameState getInstance() {
+        if (ourInstance == null)
+            ourInstance = new GameState();
+        return ourInstance;
     }
 }
