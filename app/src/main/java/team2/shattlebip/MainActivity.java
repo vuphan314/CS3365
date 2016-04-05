@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         createBoard(1);
         createBoard(2);
-
-        MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
+        letP2arrange();
 
         enableGameStageArranging();
     }
@@ -66,6 +65,18 @@ public class MainActivity extends AppCompatActivity {
             BoardCell boardCell = new BoardCell(playerNum, boardCellsStatus);
             getAdapterBoard(playerNum).add(boardCell);
         }
+    }
+
+    public void letP2arrange() {
+        Ship ship = player2.ships[0];
+        Random random = new Random();
+        int cellPos = random.nextInt(1); //todo randomize
+        for (int i = 0; i < ship.occupancy; i++) {
+            BoardCell boardCell = adapterBoard2.getItem(cellPos + i);
+            boardCell.status = BoardCellStatus.OCCUPIED;
+            ship.boardCells[i] = boardCell;
+        }
+        adapterBoard1.notifyDataSetChanged();
     }
 
     public void enableGameStageArranging() {
@@ -166,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
                 clearBoard(1);
                 clearBoard(2);
-                MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
+                letP2arrange();
 
                 enableGameStageArranging();
             }
