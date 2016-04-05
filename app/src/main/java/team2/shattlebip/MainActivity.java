@@ -50,20 +50,10 @@ public class MainActivity extends AppCompatActivity {
         gameState.gameStage = GameStage.INITIALIZED;
         notifyGameStage();
 
-        createBoard(1);
-        createBoard(2);
+        adapterBoard1.createBoard(1, gridViewBoard1, numCells1board);
+        adapterBoard2.createBoard(2, gridViewBoard2, numCells1board);
 
         enableGameStageArranging();
-    }
-
-    public void createBoard(int playerNum) {
-        getGridViewBoard(playerNum).setAdapter(getAdapterBoard(playerNum));
-        BoardCellStatus boardCellsStatus;
-        for (int i = 0; i < numCells1board; i++) {
-            boardCellsStatus = BoardCellStatus.VACANT;
-            BoardCell boardCell = new BoardCell(playerNum, boardCellsStatus);
-            getAdapterBoard(playerNum).add(boardCell);
-        }
     }
 
     public void enableGameStageArranging() {
