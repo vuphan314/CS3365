@@ -13,10 +13,10 @@ import java.util.List;
 /**
  * Created by Vu on 3/3/2016.
  */
-public class AdapterBoard extends ArrayAdapter<BoardCell> {
+public class AdapterBoard extends ArrayAdapter<Cell> {
     LayoutInflater inflater;
 
-    public AdapterBoard(Context context, List<BoardCell> objects) {
+    public AdapterBoard(Context context, List<Cell> objects) {
         super(context, -1, objects);
         inflater = LayoutInflater.from(context);
     }
@@ -24,19 +24,19 @@ public class AdapterBoard extends ArrayAdapter<BoardCell> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.layout_board_cell, parent, false);
-        BoardCell boardCell = getItem(position);
+        Cell cell = getItem(position);
 
         Button button = (Button) view.findViewById(R.id.button_board_cell);
 
-        if (boardCell.status == BoardCellStatus.HIT)
+        if (cell.cellStatus == CellStatus.HIT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorHit));
-        else if (boardCell.status == BoardCellStatus.MISSED)
+        else if (cell.cellStatus == CellStatus.MISSED)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorMissed));
 
-        else if (boardCell.playerNum == 2)
+        else if (cell.playerNum == 2)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
 
-        else if (boardCell.status == BoardCellStatus.VACANT)
+        else if (cell.cellStatus == CellStatus.VACANT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));
         else
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorOccupied));
