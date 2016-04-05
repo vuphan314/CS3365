@@ -162,22 +162,23 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean checkArrangeLV() {
         AdapterBoard adapterBoard = adapterBoard1;
+        int boardSize = (int)Math.sqrt(adapterBoard.getCount());
         for (int i = 0; i < adapterBoard.getCount(); i++) {
             Cell cell = adapterBoard1.getItem(i);
             if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + 10);
+                Cell cell2 = adapterBoard1.getItem(i + boardSize);
                 if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    Cell cell3 = adapterBoard1.getItem(i + 20);
+                    Cell cell3 = adapterBoard1.getItem(i + boardSize*2);
                     if (cell3.cellStatus == CellStatus.OCCUPIED) {
-                        Cell cell4 = adapterBoard1.getItem(i + 30);
+                        Cell cell4 = adapterBoard1.getItem(i + boardSize*3);
                         if (cell4.cellStatus == CellStatus.OCCUPIED) {
-                            Cell cell5 = adapterBoard1.getItem(i + 40);
+                            Cell cell5 = adapterBoard1.getItem(i + boardSize*4);
                             if (cell5.cellStatus == CellStatus.OCCUPIED) {
                                 checkL1 = adapterBoard1.getItem(i);
-                                checkL2 = adapterBoard1.getItem(i + 10);
-                                checkL3 = adapterBoard1.getItem(i + 20);
-                                checkL4 = adapterBoard1.getItem(i + 30);
-                                checkL5 = adapterBoard1.getItem(i + 40);
+                                checkL2 = adapterBoard1.getItem(i + boardSize);
+                                checkL3 = adapterBoard1.getItem(i + boardSize*2);
+                                checkL4 = adapterBoard1.getItem(i + boardSize*3);
+                                checkL5 = adapterBoard1.getItem(i + boardSize*4);
                                 return true;
                             }
                         }
@@ -215,18 +216,19 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean checkArrangeMV() {
         AdapterBoard adapterBoard = adapterBoard1;
+        int boardSize = (int)Math.sqrt(adapterBoard.getCount());
         for (int i = 0; i < adapterBoard.getCount(); i++) {
             Cell cell = adapterBoard1.getItem(i);
             if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + 10);
+                Cell cell2 = adapterBoard1.getItem(i + boardSize);
                 if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    Cell cell3 = adapterBoard1.getItem(i + 20);
+                    Cell cell3 = adapterBoard1.getItem(i + boardSize*2);
                     if (cell3.cellStatus == CellStatus.OCCUPIED) {
                         if ((cell3 != checkL1) && (cell3 != checkL2) && (cell3 != checkL3)
                                 && (cell3 != checkL4) && (cell3 != checkL5)) {
                             checkM1 = adapterBoard1.getItem(i);
-                            checkM2 = adapterBoard1.getItem(i + 10);
-                            checkM3 = adapterBoard1.getItem(i + 20);
+                            checkM2 = adapterBoard1.getItem(i + boardSize);
+                            checkM3 = adapterBoard1.getItem(i + boardSize*2);
                             return true;
                         }
                     }
@@ -256,10 +258,11 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean checkArrangeSV() {
         AdapterBoard adapterBoard = adapterBoard1;
+        int boardSize = (int)Math.sqrt(adapterBoard.getCount());
         for (int i = 0; i < adapterBoard.getCount(); i++) {
             Cell cell = adapterBoard1.getItem(i);
             if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + 10);
+                Cell cell2 = adapterBoard1.getItem(i + boardSize);
                 if (cell2.cellStatus == CellStatus.OCCUPIED) {
                     if ((cell2 != checkM1) && (cell2 != checkM2) && (cell2 != checkM3)
                             && (cell2 != checkL1) && (cell2 != checkL2) && (cell2 != checkL3)
