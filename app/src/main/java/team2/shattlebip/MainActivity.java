@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
     Fleet fleet1, fleet2;
+    Cell checkL1, checkL2, checkL3, checkL4, checkL5;
+    Cell checkM1, checkM2, checkM3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         createBoard(2);
 
         letP2arrange();
+
         enableGameStageArranging();
     }
 
@@ -65,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void letP2arrange() {
-        //todo randomize
+        Random random = new Random();
         for (int i = 0; i < fleet2.numShips; i++) {
             Ship ship = fleet2.ships.get(i);
+            int randomRow = i * 2 + random.nextInt(2), randomColumn = random.nextInt(2),
+                    randomPosition = randomRow * numCells1side + randomColumn;
             for (int j = 0; j < ship.numCells; j++) {
-                Cell cell = adapterBoard2.getItem(i * numCells1side + j);
+                Cell cell = adapterBoard2.getItem(randomPosition + j);
                 cell.cellStatus = CellStatus.OCCUPIED;
                 ship.addCell(cell);
             }
@@ -83,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 setGameStage(GameStage.ARRANGING);
 
                 letP1arrange();
+
+//                todo enable randomizing fleet2
+//                MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
             }
         });
     }
@@ -104,10 +112,12 @@ public class MainActivity extends AppCompatActivity {
                     makeToast(msg);
                 }
                 adapterBoard1.notifyDataSetChanged();
-                checkArrange();
+
+                enableGameStageBattling();
+//                todo check validity of fleet1's arrangement
+//                checkArrange();
             }
         });
-
     }
 
     public void checkArrange() {
@@ -123,14 +133,12 @@ public class MainActivity extends AppCompatActivity {
             if (((checkArrangeLH()) || (checkArrangeLV()))) {
                 if (((checkArrangeMH()) || (checkArrangeMV()))) {
                     if (((checkArrangeSH()) || (checkArrangeSV()))) {
-                        enableGameStageBattling();
+//                        enableGameStageBattling();
                     }
                 }
             }
         }
     }
-
-    Cell checkL1, checkL2, checkL3, checkL4, checkL5;
 
     public boolean checkArrangeLH() {
         AdapterBoard adapterBoard = adapterBoard1;
@@ -187,8 +195,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    Cell checkM1, checkM2, checkM3;
 
     public boolean checkArrangeMH() {
         AdapterBoard adapterBoard = adapterBoard1;
@@ -396,6 +402,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void makeToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

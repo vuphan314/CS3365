@@ -69,15 +69,15 @@
             android:text="RESTART" />
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Turn Controls" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Turn Controls" />-->
 
         <!--<Button-->
-            <!--android:id="@+id/button_upgrade"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="UPGRADE" />-->
+        <!--android:id="@+id/button_upgrade"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="UPGRADE" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -112,8 +112,8 @@
     </LinearLayout>
 
     <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:text="Each player has a 1x5 ship" />-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:text="Each player has a 1x5 ship" />-->
 </RelativeLayout>
