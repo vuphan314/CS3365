@@ -42,7 +42,6 @@ public class MathModel {
         return x * cols + y;
     }
 
-    //find random cell to start from
     private static void getEmptyCell()
     {
         do
@@ -53,13 +52,11 @@ public class MathModel {
         while (board.getItem(getPosFromXY()).status == BoardCellStatus.OCCUPIED);
     }
 
-    //
     private static boolean isNorthValid(int size)
     {
         for (int i = 0; i < size; i++)
         {
-            int nextY = y - i;
-            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).status == BoardCellStatus.OCCUPIED);
+            if (board.getItem(getPosFromXY(x, y + i)).status == BoardCellStatus.OCCUPIED);
                 return false;
         }
 
@@ -69,15 +66,14 @@ public class MathModel {
     private static void setNorthPlacement(int size)
     {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x, y - i)).status = BoardCellStatus.OCCUPIED;
+            board.getItem(getPosFromXY(x, y + i)).status = BoardCellStatus.OCCUPIED;
     }
 
     private static boolean isEastValid(int size)
     {
         for (int i = 0; i < size; i++)
         {
-            int nextX = x + i;
-            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).status == BoardCellStatus.OCCUPIED);
+            if (board.getItem(getPosFromXY(x + i, y)).status == BoardCellStatus.OCCUPIED);
                 return false;
         }
 
@@ -94,8 +90,7 @@ public class MathModel {
     {
         for (int i = 0; i < size; i++)
         {
-            int nextY = y +- i;
-            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).status == BoardCellStatus.OCCUPIED);
+            if (board.getItem(getPosFromXY(x, y - i)).status == BoardCellStatus.OCCUPIED);
                 return false;
         }
 
@@ -105,15 +100,14 @@ public class MathModel {
     private static void setSouthPlacement(int size)
     {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x, y + i)).status = BoardCellStatus.OCCUPIED;
+            board.getItem(getPosFromXY(x, y - i)).status = BoardCellStatus.OCCUPIED;
     }
 
     private static boolean isWestValid(int size)
     {
         for (int i = 0; i < size; i++)
         {
-            int nextX = x - i;
-            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).status == BoardCellStatus.OCCUPIED);
+            if (board.getItem(getPosFromXY(x - i, y)).status == BoardCellStatus.OCCUPIED);
                 return false;
         }
 
@@ -126,7 +120,6 @@ public class MathModel {
             board.getItem(getPosFromXY(x - i, y)).status = BoardCellStatus.OCCUPIED;
     }
 
-    //performs random sampling
     private static void setPlacement(int size)
     {
         List<Integer> sample = new ArrayList<>(4);
@@ -170,16 +163,15 @@ public class MathModel {
         }
     }
 
-    //the main public function. this places ships in available squares.
     public static void generateShipPlacement(AdapterBoard adapterBoard, int dim)
     {
         board = adapterBoard;
         cols = dim;
 
-        setPlacement(2); //small
-        setPlacement(3); //medium
-        setPlacement(3);
-        setPlacement(4); //large
+        setPlacement(2);
+        setPlacement(4);
+        setPlacement(4);
+        setPlacement(5);
 
         board.notifyDataSetChanged();
     }
