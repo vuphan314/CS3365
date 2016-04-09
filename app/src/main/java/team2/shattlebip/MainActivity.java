@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkArrange() {
+        ShipArrangement shipArr = new ShipArrangement();
         AdapterBoard adapterBoard = adapterBoard1;
         int c = 0;
         for (int i = 0; i < adapterBoard.getCount(); i++) {
@@ -120,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (c == 10) {
-            if (((checkArrangeLH()) || (checkArrangeLV()))) {
-                if (((checkArrangeMH()) || (checkArrangeMV()))) {
-                    if (((checkArrangeSH()) || (checkArrangeSV()))) {
+            if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard)))) {
+                if (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard)))) {
+                    if (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard)))) {
                         enableGameStageBattling();
                     }
                 }
@@ -130,150 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    Cell checkL1, checkL2, checkL3, checkL4, checkL5;
 
-    public boolean checkArrangeLH() {
-        AdapterBoard adapterBoard = adapterBoard1;
-        for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + 1);
-                if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    Cell cell3 = adapterBoard1.getItem(i + 2);
-                    if (cell3.cellStatus == CellStatus.OCCUPIED) {
-                        Cell cell4 = adapterBoard1.getItem(i + 3);
-                        if (cell4.cellStatus == CellStatus.OCCUPIED) {
-                            Cell cell5 = adapterBoard1.getItem(i + 4);
-                            if (cell5.cellStatus == CellStatus.OCCUPIED) {
-                                checkL1 = adapterBoard1.getItem(i);
-                                checkL2 = adapterBoard1.getItem(i + 1);
-                                checkL3 = adapterBoard1.getItem(i + 2);
-                                checkL4 = adapterBoard1.getItem(i + 3);
-                                checkL5 = adapterBoard1.getItem(i + 4);
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean checkArrangeLV() {
-        AdapterBoard adapterBoard = adapterBoard1;
-        int boardSize = (int)Math.sqrt(adapterBoard.getCount());
-        for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + boardSize);
-                if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    Cell cell3 = adapterBoard1.getItem(i + boardSize*2);
-                    if (cell3.cellStatus == CellStatus.OCCUPIED) {
-                        Cell cell4 = adapterBoard1.getItem(i + boardSize*3);
-                        if (cell4.cellStatus == CellStatus.OCCUPIED) {
-                            Cell cell5 = adapterBoard1.getItem(i + boardSize*4);
-                            if (cell5.cellStatus == CellStatus.OCCUPIED) {
-                                checkL1 = adapterBoard1.getItem(i);
-                                checkL2 = adapterBoard1.getItem(i + boardSize);
-                                checkL3 = adapterBoard1.getItem(i + boardSize*2);
-                                checkL4 = adapterBoard1.getItem(i + boardSize*3);
-                                checkL5 = adapterBoard1.getItem(i + boardSize*4);
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    Cell checkM1, checkM2, checkM3;
-
-    public boolean checkArrangeMH() {
-        AdapterBoard adapterBoard = adapterBoard1;
-        for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + 1);
-                if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    Cell cell3 = adapterBoard1.getItem(i + 2);
-                    if (cell3.cellStatus == CellStatus.OCCUPIED) {
-                        if ((cell3 != checkL1) && (cell3 != checkL2) && (cell3 != checkL3)
-                                && (cell3 != checkL4) && (cell3 != checkL5)) {
-                            checkM1 = adapterBoard1.getItem(i);
-                            checkM2 = adapterBoard1.getItem(i + 1);
-                            checkM3 = adapterBoard1.getItem(i + 2);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean checkArrangeMV() {
-        AdapterBoard adapterBoard = adapterBoard1;
-        int boardSize = (int)Math.sqrt(adapterBoard.getCount());
-        for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + boardSize);
-                if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    Cell cell3 = adapterBoard1.getItem(i + boardSize*2);
-                    if (cell3.cellStatus == CellStatus.OCCUPIED) {
-                        if ((cell3 != checkL1) && (cell3 != checkL2) && (cell3 != checkL3)
-                                && (cell3 != checkL4) && (cell3 != checkL5)) {
-                            checkM1 = adapterBoard1.getItem(i);
-                            checkM2 = adapterBoard1.getItem(i + boardSize);
-                            checkM3 = adapterBoard1.getItem(i + boardSize*2);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean checkArrangeSH() {
-        AdapterBoard adapterBoard = adapterBoard1;
-        for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + 1);
-                if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    if ((cell2 != checkM1) && (cell2 != checkM2) && (cell2 != checkM3)
-                            && (cell2 != checkL1) && (cell2 != checkL2) && (cell2 != checkL3)
-                            && (cell2 != checkL4) && (cell2 != checkL5)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean checkArrangeSV() {
-        AdapterBoard adapterBoard = adapterBoard1;
-        int boardSize = (int)Math.sqrt(adapterBoard.getCount());
-        for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
-                Cell cell2 = adapterBoard1.getItem(i + boardSize);
-                if (cell2.cellStatus == CellStatus.OCCUPIED) {
-                    if ((cell2 != checkM1) && (cell2 != checkM2) && (cell2 != checkM3)
-                            && (cell2 != checkL1) && (cell2 != checkL2) && (cell2 != checkL3)
-                            && (cell2 != checkL4) && (cell2 != checkL5)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 
 
     public void enableGameStageBattling() {
