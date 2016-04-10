@@ -34,8 +34,8 @@ public class AdapterBoard extends ArrayAdapter<BoardCell> {
         else if (boardCell.status == BoardCellStatus.MISSED)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorMissed));
 
-        else if (boardCell.playerNum == 2)
-            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
+//        else if (boardCell.playerNum == 2)
+//            button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
 
         else if (boardCell.status == BoardCellStatus.VACANT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));

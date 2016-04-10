@@ -195,8 +195,7 @@ public class MathModel {
 
         setPlacement(2); //small
         setPlacement(3); //medium
-        setPlacement(3);
-        setPlacement(4); //large
+        setPlacement(5); //large
 
         board.notifyDataSetChanged();
     }
