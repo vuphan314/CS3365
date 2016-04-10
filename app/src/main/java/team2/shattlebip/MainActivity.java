@@ -110,9 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 adapterBoard1.notifyDataSetChanged();
 
-                enableGameStageBattling();
-//                todo check validity of fleet1's arrangement
-//                checkArrange();
+                checkArrange();
             }
         });
     }
@@ -137,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
 
     public void enableGameStageBattling() {
