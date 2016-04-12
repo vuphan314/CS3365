@@ -21,7 +21,7 @@
   - click `VCS`/`Git`/`Branches...`
     - click `Check out Tag or Revision`
       - type `<tagname>`
-        - for example: `i3d` (iteration 3 draft)
+        - for example: `i3f` (iteration 3 final)
       - click `OK`
   - click `Run`/`Run 'app'`
   - (popup) `Do you want to uninstall the existing application?`
