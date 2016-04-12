@@ -10,5 +10,4 @@
     <string name="game_stage_initialized">initialized</string>
     <string name="game_stage_arranging">arranging</string>
     <string name="game_stage_battling">battling</string>
-
 </resources>

@@ -6,14 +6,14 @@ import java.util.List;
 /**
  * Created by Vu on 4/3/2016.
  */
-public class Fleet {
+public class Player {
     public int numShipsArranged = 0;
     public int numShips = 3;
 
     public int playerNum;
     public List<Ship> ships = new ArrayList<>(numShips);
 
-    public Fleet(int playerNum) {
+    public Player(int playerNum) {
         this.playerNum = playerNum;
 
         Ship ship = new Ship(playerNum, ShipType.LITTLE_GUY);
@@ -32,10 +32,10 @@ public class Fleet {
         return getNumShipsToArrange() > 0;
     }
 
-    public void addCell(Cell cell) {
+    public void addCell(BoardCell boardCell) {
         Ship ship = ships.get(numShipsArranged);
 
-        ship.addCell(cell);
+        ship.addCell(boardCell);
         if (!ship.canAddCells())
             numShipsArranged++;
     }
@@ -47,9 +47,9 @@ public class Fleet {
         return false;
     }
 
-    public void attackCell(Cell cell) {
+    public void attackCell(BoardCell boardCell) {
         Ship ship = getNextShipCanAttack();
-        ship.attackCell(cell);
+        ship.attackCell(boardCell);
     }
 
     public Ship getNextShipCanAttack() {

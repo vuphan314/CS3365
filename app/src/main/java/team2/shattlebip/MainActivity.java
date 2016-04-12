@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonArrange, buttonBattle, buttonRestart;
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
-    Fleet fleet1, fleet2;
+    Player player1, player2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enableGame() {
-        Game game = new Game(this, numCells1side,
+        GameState gameState = GameState.getInstance();
+        gameState.setFields(this, numCells1side,
                 textViewGameStage, buttonArrange, buttonBattle, buttonRestart,
-                gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2, fleet1, fleet2
-        );
+                gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2, player1, player2);
 
-        game.start();
-        game.enableGameRestart();
+        gameState.start();
+        gameState.enableGameRestart();
     }
 
     public void initializeVariables() {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 //        buttonUpgrade = (Button) findViewById(R.id.button_upgrade);
         gridViewBoard1 = (GridView) findViewById(R.id.gridViewBoard1);
         gridViewBoard2 = (GridView) findViewById(R.id.gridViewBoard2);
-        adapterBoard1 = new AdapterBoard(this, new ArrayList<Cell>());
-        adapterBoard2 = new AdapterBoard(this, new ArrayList<Cell>());
+        adapterBoard1 = new AdapterBoard(this, new ArrayList<BoardCell>());
+        adapterBoard2 = new AdapterBoard(this, new ArrayList<BoardCell>());
     }
 }

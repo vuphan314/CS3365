@@ -18,13 +18,13 @@ public class Ship {
     public int numCells;
     public int numAttacksAllowed;
 
-    public List<Cell> cells;
+    public List<BoardCell> boardCells;
 
     public Ship(int playerNum, ShipType shipType) {
         this.playerNum = playerNum;
         this.shipType = shipType;
         setShipTypeDependentFields();
-        cells = new ArrayList<>(numCells);
+        boardCells = new ArrayList<>(numCells);
     }
 
     void setShipTypeDependentFields() {
@@ -48,9 +48,9 @@ public class Ship {
         return getNumCellsToAdd() > 0;
     }
 
-    public void addCell(Cell cell) {
-        cell.cellStatus = CellStatus.OCCUPIED;
-        cells.add(cell);
+    public void addCell(BoardCell boardCell) {
+        boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
+        boardCells.add(boardCell);
         numCellsAdded++;
     }
 
@@ -62,11 +62,11 @@ public class Ship {
         return isAlive() && getNumAttacksLeft() > 0;
     }
 
-    public void attackCell(Cell cell) {
-        if (cell.cellStatus == CellStatus.VACANT)
-            cell.cellStatus = CellStatus.MISSED;
-        if (cell.cellStatus == CellStatus.OCCUPIED)
-            cell.cellStatus = CellStatus.HIT;
+    public void attackCell(BoardCell boardCell) {
+        if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
+            boardCell.boardCellStatus = BoardCellStatus.MISSED;
+        if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED)
+            boardCell.boardCellStatus = BoardCellStatus.HIT;
         numAttacksMade++;
     }
 
@@ -84,8 +84,8 @@ public class Ship {
     }
 
     public boolean isAlive() {
-        for (Cell cell : cells)
-            if (cell.cellStatus != CellStatus.HIT)
+        for (BoardCell boardCell : boardCells)
+            if (boardCell.boardCellStatus != BoardCellStatus.HIT)
                 return true;
         return false;
     }
