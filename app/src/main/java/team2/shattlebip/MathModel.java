@@ -44,14 +44,14 @@ public class MathModel {
             x = random.nextInt(cols);
             y = random.nextInt(cols);
         }
-        while (board.getItem(getPosFromXY()).cellStatus == CellStatus.OCCUPIED);
+        while (board.getItem(getPosFromXY()).boardCellStatus == BoardCellStatus.OCCUPIED);
     }
 
     //
     private static boolean isNorthValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextY = y - i;
-            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).cellStatus == CellStatus.OCCUPIED)
+            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).boardCellStatus == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -60,13 +60,13 @@ public class MathModel {
 
     private static void setNorthPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x, y - i)).cellStatus = CellStatus.OCCUPIED;
+            board.getItem(getPosFromXY(x, y - i)).boardCellStatus = BoardCellStatus.OCCUPIED;
     }
 
     private static boolean isEastValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextX = x + i;
-            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).cellStatus == CellStatus.OCCUPIED)
+            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).boardCellStatus == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -75,13 +75,13 @@ public class MathModel {
 
     private static void setEastPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x + i, y)).cellStatus = CellStatus.OCCUPIED;
+            board.getItem(getPosFromXY(x + i, y)).boardCellStatus = BoardCellStatus.OCCUPIED;
     }
 
     private static boolean isSouthValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextY = y + -i;
-            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).cellStatus == CellStatus.OCCUPIED)
+            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).boardCellStatus == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -90,13 +90,13 @@ public class MathModel {
 
     private static void setSouthPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x, y + i)).cellStatus = CellStatus.OCCUPIED;
+            board.getItem(getPosFromXY(x, y + i)).boardCellStatus = BoardCellStatus.OCCUPIED;
     }
 
     private static boolean isWestValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextX = x - i;
-            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).cellStatus == CellStatus.OCCUPIED)
+            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).boardCellStatus == BoardCellStatus.OCCUPIED)
                 return false;
         }
 
@@ -105,7 +105,7 @@ public class MathModel {
 
     private static void setWestPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x - i, y)).cellStatus = CellStatus.OCCUPIED;
+            board.getItem(getPosFromXY(x - i, y)).boardCellStatus = BoardCellStatus.OCCUPIED;
     }
 
     //performs random sampling
@@ -164,10 +164,9 @@ public class MathModel {
         board = adapterBoard;
         cols = dim;
 
-        setPlacement(2); //small
-        setPlacement(3); //medium
-//        setPlacement(3);
-        setPlacement(5); //large
+        setPlacement(2); // little guy
+        setPlacement(3); // middle man
+        setPlacement(5); // big boy
 
         board.notifyDataSetChanged();
     }

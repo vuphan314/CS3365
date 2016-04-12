@@ -13,7 +13,18 @@ import java.util.Random;
 /**
  * Updated by Vu
  */
-public class Game {
+public class GameState {
+    private static GameState instance;
+
+    private GameState() {
+    }
+
+    public static GameState getInstance() {
+        if (instance == null)
+            instance = new GameState();
+        return instance;
+    }
+
     Context context;
     GameStage gameStage;
     int numCells1side;
@@ -21,14 +32,14 @@ public class Game {
     Button buttonArrange, buttonBattle, buttonRestart;
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
-    Fleet fleet1, fleet2;
+    Player player1, player2;
 
-    public Game(Context context, int numCells1side,
-                TextView textViewGameStage,
-                Button buttonArrange, Button buttonBattle, Button buttonRestart,
-                GridView gridViewBoard1, GridView gridViewBoard2,
-                AdapterBoard adapterBoard1, AdapterBoard adapterBoard2,
-                Fleet fleet1, Fleet fleet2) {
+    public void setFields(Context context, int numCells1side,
+                          TextView textViewGameStage,
+                          Button buttonArrange, Button buttonBattle, Button buttonRestart,
+                          GridView gridViewBoard1, GridView gridViewBoard2,
+                          AdapterBoard adapterBoard1, AdapterBoard adapterBoard2,
+                          Player player1, Player player2) {
         this.context = context;
         this.numCells1side = numCells1side;
         this.textViewGameStage = textViewGameStage;
@@ -39,16 +50,16 @@ public class Game {
         this.gridViewBoard2 = gridViewBoard2;
         this.adapterBoard1 = adapterBoard1;
         this.adapterBoard2 = adapterBoard2;
-        this.fleet1 = fleet1;
-        this.fleet2 = fleet2;
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void start() {
         putGameStage(GameStage.INITIALIZED);
 
         instantiateFleets();
-        createBoard(1);
-        createBoard(2);
+        adapterBoard1.createBoard(1, gridViewBoard1, getNumCells1board());
+        adapterBoard2.createBoard(2, gridViewBoard2, getNumCells1board());
 
         letP2arrange();
         enableGameStageArranging();
@@ -56,14 +67,14 @@ public class Game {
 
     public void letP2arrange() {
         Random random = new Random();
-        for (int i = 0; i < fleet2.numShips; i++) {
-            Ship ship = fleet2.ships.get(i);
+        for (int i = 0; i < player2.numShips; i++) {
+            Ship ship = player2.ships.get(i);
             int randomRow = i * 2 + random.nextInt(2), randomColumn = random.nextInt(2),
                     randomPosition = randomRow * numCells1side + randomColumn;
             for (int j = 0; j < ship.numCells; j++) {
-                Cell cell = adapterBoard2.getItem(randomPosition + j);
-                cell.cellStatus = CellStatus.OCCUPIED;
-                ship.addCell(cell);
+                BoardCell boardCell = adapterBoard2.getItem(randomPosition + j);
+                boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
+                ship.addCell(boardCell);
             }
         }
     }
@@ -76,7 +87,7 @@ public class Game {
 
                 letP1arrange();
 
-                //TODO enable randomizing fleet2 after tmpzach passes tests
+                //TODO uncomment after Zach fixes errors
 //                MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
             }
         });
@@ -86,21 +97,23 @@ public class Game {
         gridViewBoard1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cell cell = (Cell) parent.getAdapter().getItem(position);
-                if (fleet1.canAddCell()) {
-                    fleet1.addCell(cell);
+                BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
+                if (player1.canAddCell()) {
+                    player1.addCell(boardCell);
                     String msg;
-                    if (fleet1.canAddCell())
-                        msg = fleet1.ships.get(fleet1.numShipsArranged).getNumCellsToAdd() +
-                                " cell(s) left to add to your ship " +
-                                (fleet1.numShipsArranged + 1);
+                    if (player1.canAddCell())
+                        msg = player1.ships.get(player1.numShipsArranged).getNumCellsToAdd() +
+                                " boardCell(s) left to add to your ship " +
+                                (player1.numShipsArranged + 1);
                     else
                         msg = "now click BATTLE";
                     makeToast(msg);
                 }
                 adapterBoard1.notifyDataSetChanged();
 
-                checkArrange();
+                enableGameStageBattling();
+                //TODO uncomment after Paul fixes errors
+//                checkArrange();
             }
         });
     }
@@ -110,8 +123,8 @@ public class Game {
         AdapterBoard adapterBoard = adapterBoard1;
         int c = 0;
         for (int i = 0; i < adapterBoard.getCount(); i++) {
-            Cell cell = adapterBoard1.getItem(i);
-            if (cell.cellStatus == CellStatus.OCCUPIED) {
+            BoardCell boardCell = adapterBoard1.getItem(i);
+            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
                 c = c + 1;
             }
         }
@@ -144,20 +157,20 @@ public class Game {
         gridViewBoard2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cell cell = (Cell) parent.getAdapter().getItem(position);
-                if (fleet1.canAttack()) {
-                    fleet1.attackCell(cell);
+                BoardCell boardCell = (BoardCell) parent.getAdapter().getItem(position);
+                if (player1.canAttack()) {
+                    player1.attackCell(boardCell);
                     String msg;
-                    if (!fleet2.isAlive())
+                    if (!player2.isAlive())
                         msg = "you won; click RESTART";
-                    else if (fleet1.canAttack()) {
-                        Ship ship = fleet1.getNextShipCanAttack();
+                    else if (player1.canAttack()) {
+                        Ship ship = player1.getNextShipCanAttack();
                         msg = ship.getNumAttacksLeft() + " attack(s) left for your ship " +
-                                (fleet1.ships.indexOf(ship) + 1);
+                                (player1.ships.indexOf(ship) + 1);
                     } else {
-                        fleet1.resetNumsAttacksMade();
+                        player1.resetNumsAttacksMade();
                         letP2attack();
-                        if (!fleet1.isAlive())
+                        if (!player1.isAlive())
                             msg = "you lost; click RESTART";
                         else
                             msg = "bot done; your turn again";
@@ -171,15 +184,15 @@ public class Game {
 
     public void letP2attack() {
         Random random = new Random();
-        while (fleet2.canAttack()) {
-            Cell cell;
+        while (player2.canAttack()) {
+            BoardCell boardCell;
             do {
-                cell = adapterBoard1.getItem(random.nextInt(getNumCells1board()));
+                boardCell = adapterBoard1.getItem(random.nextInt(getNumCells1board()));
             }
-            while (cell.cellStatus == CellStatus.HIT || cell.cellStatus == CellStatus.MISSED);
-            fleet2.attackCell(cell);
+            while (boardCell.boardCellStatus == BoardCellStatus.HIT || boardCell.boardCellStatus == BoardCellStatus.MISSED);
+            player2.attackCell(boardCell);
         }
-        fleet2.resetNumsAttacksMade();
+        player2.resetNumsAttacksMade();
         adapterBoard1.notifyDataSetChanged();
     }
 
@@ -205,32 +218,15 @@ public class Game {
     }
 
     public void instantiateFleets() {
-        fleet1 = new Fleet(1);
-        fleet2 = new Fleet(2);
-    }
-
-    public void createBoard(int playerNum) {
-        getGridViewBoard(playerNum).setAdapter(getAdapterBoard(playerNum));
-        CellStatus cellsStatus;
-        for (int i = 0; i < getNumCells1board(); i++) {
-            cellsStatus = CellStatus.VACANT;
-            Cell cell = new Cell(playerNum, cellsStatus);
-            getAdapterBoard(playerNum).add(cell);
-        }
+        player1 = new Player(1);
+        player2 = new Player(2);
     }
 
     public void clearBoard(int playerNum) {
         AdapterBoard adapterBoard = getAdapterBoard(playerNum);
         for (int i = 0; i < adapterBoard.getCount(); i++)
-            adapterBoard.getItem(i).cellStatus = CellStatus.VACANT;
+            adapterBoard.getItem(i).boardCellStatus = BoardCellStatus.VACANT;
         adapterBoard.notifyDataSetChanged();
-    }
-
-    public GridView getGridViewBoard(int playerNum) {
-        if (playerNum == 1)
-            return gridViewBoard1;
-        else
-            return gridViewBoard2;
     }
 
     public AdapterBoard getAdapterBoard(int playerNum) {
@@ -242,7 +238,7 @@ public class Game {
 
     public void putGameStage(GameStage gameStage) {
         this.gameStage = gameStage;
-        String msg = "Game stage: " + gameStage;
+        String msg = "GameState stage: " + gameStage;
         textViewGameStage.setText(msg);
         describeGameStage();
     }
@@ -252,9 +248,9 @@ public class Game {
         if (gameStage == GameStage.INITIALIZED)
             msg = "click ARRANGE";
         else if (gameStage == GameStage.ARRANGING)
-            msg = "tap cell on your board to arrange your " + fleet1.numShips + " ships";
+            msg = "tap cell on your board to arrange your " + player1.numShips + " ships";
         else
-            msg = "tap cell on bot's board to attack its " + fleet2.numShips + " ships";
+            msg = "tap cell on bot's board to attack its " + player2.numShips + " ships";
         makeToast(msg);
     }
 
