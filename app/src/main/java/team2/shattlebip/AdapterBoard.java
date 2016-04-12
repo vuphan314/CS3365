@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 
 import java.util.List;
 
@@ -42,5 +43,11 @@ public class AdapterBoard extends ArrayAdapter<Cell> {
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorOccupied));
 
         return view;
+    }
+
+    public void createBoard(int playerNum, GridView grid, int cells) {
+        grid.setAdapter(this);
+        for (int i = 0; i < cells; i++)
+            this.add(new BoardCell(playerNum, BoardCellStatus.VACANT));
     }
 }
