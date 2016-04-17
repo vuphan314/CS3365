@@ -7,11 +7,24 @@ import java.util.List;
  * Created by Vu on 4/3/2016.
  */
 public class Player {
-    public int numShipsArranged = 0;
-    public int numShips = 3;
+    private int numShipsArranged = 0;
 
-    public int playerNum;
-    public List<Ship> ships = new ArrayList<>(numShips);
+    public int getNumShipsArranged() {
+        return numShipsArranged;
+    }
+
+    private int numShips = 3;
+
+    public int getNumShips() {
+        return numShips;
+    }
+
+    private int playerNum;
+    private List<Ship> ships = new ArrayList<>(numShips);
+
+    public List<Ship> getShips() {
+        return ships;
+    }
 
     public Player(int playerNum) {
         this.playerNum = playerNum;
@@ -24,7 +37,7 @@ public class Player {
         ships.add(ship);
     }
 
-    public int getNumShipsToArrange() {
+    private int getNumShipsToArrange() {
         return numShips - numShipsArranged;
     }
 
@@ -64,10 +77,10 @@ public class Player {
 
     public void resetNumsAttacksMade() {
         for (Ship ship : ships)
-            ship.numAttacksMade = 0;
+            ship.setNumAttacksMade(0);
     }
 
-    public int getNumShipsAlive() {
+    private int getNumShipsAlive() {
         int numShipsAlive = 0;
         for (Ship ship : ships)
             if (ship.isAlive())

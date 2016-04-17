@@ -15,6 +15,14 @@ import java.util.Random;
  */
 public class GameState {
     private static GameState instance;
+    Context context;
+    GameStage gameStage;
+    int numCells1side;
+    TextView textViewGameStage;
+    Button buttonArrange, buttonBattle, buttonRestart;
+    GridView gridViewBoard1, gridViewBoard2;
+    AdapterBoard adapterBoard1, adapterBoard2;
+    Player player1, player2;
 
     private GameState() {
     }
@@ -24,15 +32,6 @@ public class GameState {
             instance = new GameState();
         return instance;
     }
-
-    Context context;
-    GameStage gameStage;
-    int numCells1side;
-    TextView textViewGameStage;
-    Button buttonArrange, buttonBattle, buttonRestart;
-    GridView gridViewBoard1, gridViewBoard2;
-    AdapterBoard adapterBoard1, adapterBoard2;
-    Player player1, player2;
 
     public void setFields(Context context, int numCells1side,
                           TextView textViewGameStage,
@@ -65,21 +64,21 @@ public class GameState {
         enableGameStageArranging();
     }
 
-    public void letP2arrange() {
+    private void letP2arrange() {
         Random random = new Random();
-        for (int i = 0; i < player2.numShips; i++) {
-            Ship ship = player2.ships.get(i);
+        for (int i = 0; i < player2.getNumShips(); i++) {
+            Ship ship = player2.getShips().get(i);
             int randomRow = i * 2 + random.nextInt(2), randomColumn = random.nextInt(2),
                     randomPosition = randomRow * numCells1side + randomColumn;
-            for (int j = 0; j < ship.numCells; j++) {
+            for (int j = 0; j < ship.getNumCells(); j++) {
                 BoardCell boardCell = adapterBoard2.getItem(randomPosition + j);
-                boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
+                boardCell.setBoardCellStatus(BoardCellStatus.OCCUPIED);
                 ship.addCell(boardCell);
             }
         }
     }
 
-    public void enableGameStageArranging() {
+    private void enableGameStageArranging() {
         buttonArrange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +92,7 @@ public class GameState {
         });
     }
 
-    public void letP1arrange() {
+    private void letP1arrange() {
         gridViewBoard1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,9 +101,9 @@ public class GameState {
                     player1.addCell(boardCell);
                     String msg;
                     if (player1.canAddCell())
-                        msg = player1.ships.get(player1.numShipsArranged).getNumCellsToAdd() +
-                                " boardCell(s) left to add to your ship " +
-                                (player1.numShipsArranged + 1);
+                        msg = player1.getShips().get(player1.getNumShipsArranged()).getNumCellsToAdd() +
+                                " cell(s) left to add to your ship " +
+                                (player1.getNumShipsArranged() + 1);
                     else
                         msg = "now click BATTLE";
                     makeToast(msg);
@@ -118,13 +117,13 @@ public class GameState {
         });
     }
 
-    public void checkArrange() {
+    private void checkArrange() {
         ShipArrangement shipArr = new ShipArrangement();
         AdapterBoard adapterBoard = adapterBoard1;
         int c = 0;
         for (int i = 0; i < adapterBoard.getCount(); i++) {
             BoardCell boardCell = adapterBoard1.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 c = c + 1;
             }
         }
@@ -139,7 +138,7 @@ public class GameState {
         }
     }
 
-    public void enableGameStageBattling() {
+    private void enableGameStageBattling() {
         buttonBattle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +152,7 @@ public class GameState {
         });
     }
 
-    public void letP1attack() {
+    private void letP1attack() {
         gridViewBoard2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -166,7 +165,7 @@ public class GameState {
                     else if (player1.canAttack()) {
                         Ship ship = player1.getNextShipCanAttack();
                         msg = ship.getNumAttacksLeft() + " attack(s) left for your ship " +
-                                (player1.ships.indexOf(ship) + 1);
+                                (player1.getShips().indexOf(ship) + 1);
                     } else {
                         player1.resetNumsAttacksMade();
                         letP2attack();
@@ -182,14 +181,15 @@ public class GameState {
         });
     }
 
-    public void letP2attack() {
+    private void letP2attack() {
         Random random = new Random();
         while (player2.canAttack()) {
             BoardCell boardCell;
             do {
                 boardCell = adapterBoard1.getItem(random.nextInt(getNumCells1board()));
             }
-            while (boardCell.boardCellStatus == BoardCellStatus.HIT || boardCell.boardCellStatus == BoardCellStatus.MISSED);
+            while (boardCell.getBoardCellStatus() == BoardCellStatus.HIT ||
+                    boardCell.getBoardCellStatus() == BoardCellStatus.MISSED);
             player2.attackCell(boardCell);
         }
         player2.resetNumsAttacksMade();
@@ -217,48 +217,48 @@ public class GameState {
         });
     }
 
-    public void instantiateFleets() {
+    private void instantiateFleets() {
         player1 = new Player(1);
         player2 = new Player(2);
     }
 
-    public void clearBoard(int playerNum) {
+    private void clearBoard(int playerNum) {
         AdapterBoard adapterBoard = getAdapterBoard(playerNum);
         for (int i = 0; i < adapterBoard.getCount(); i++)
-            adapterBoard.getItem(i).boardCellStatus = BoardCellStatus.VACANT;
+            adapterBoard.getItem(i).setBoardCellStatus(BoardCellStatus.VACANT);
         adapterBoard.notifyDataSetChanged();
     }
 
-    public AdapterBoard getAdapterBoard(int playerNum) {
+    private AdapterBoard getAdapterBoard(int playerNum) {
         if (playerNum == 1)
             return adapterBoard1;
         else
             return adapterBoard2;
     }
 
-    public void putGameStage(GameStage gameStage) {
+    private void putGameStage(GameStage gameStage) {
         this.gameStage = gameStage;
         String msg = "GameState stage: " + gameStage;
         textViewGameStage.setText(msg);
         describeGameStage();
     }
 
-    public void describeGameStage() {
+    private void describeGameStage() {
         String msg;
         if (gameStage == GameStage.INITIALIZED)
             msg = "click ARRANGE";
         else if (gameStage == GameStage.ARRANGING)
-            msg = "tap cell on your board to arrange your " + player1.numShips + " ships";
+            msg = "tap cell on your board to arrange your " + player1.getNumShips() + " ships";
         else
-            msg = "tap cell on bot's board to attack its " + player2.numShips + " ships";
+            msg = "tap cell on bot's board to attack its " + player2.getNumShips() + " ships";
         makeToast(msg);
     }
 
-    public void makeToast(String msg) {
+    private void makeToast(String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public int getNumCells1board() {
+    private int getNumCells1board() {
         return (int) Math.pow(numCells1side, 2);
     }
 }

@@ -7,18 +7,28 @@ import java.util.List;
  * Created by Vu on 4/2/2016.
  */
 public class Ship {
-    public int numCellsAdded = 0;
-    public int numAttacksMade = 0;
-    public int numUpgradesMade = 0;
-    public int numUpgradesAllowed = 3;
+    private int numCellsAdded = 0;
+    private int numAttacksMade = 0;
 
-    public int playerNum;
-    public ShipType shipType;
+    public void setNumAttacksMade(int numAttacksMade) {
+        this.numAttacksMade = numAttacksMade;
+    }
 
-    public int numCells;
-    public int numAttacksAllowed;
+    private int numUpgradesMade = 0;
+    private int numUpgradesAllowed = 3;
 
-    public List<BoardCell> boardCells;
+    private int playerNum;
+    private ShipType shipType;
+
+    private int numCells;
+
+    public int getNumCells() {
+        return numCells;
+    }
+
+    private int numAttacksAllowed;
+
+    private List<BoardCell> boardCells;
 
     public Ship(int playerNum, ShipType shipType) {
         this.playerNum = playerNum;
@@ -49,7 +59,7 @@ public class Ship {
     }
 
     public void addCell(BoardCell boardCell) {
-        boardCell.boardCellStatus = BoardCellStatus.OCCUPIED;
+        boardCell.setBoardCellStatus(BoardCellStatus.OCCUPIED);
         boardCells.add(boardCell);
         numCellsAdded++;
     }
@@ -63,29 +73,29 @@ public class Ship {
     }
 
     public void attackCell(BoardCell boardCell) {
-        if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
-            boardCell.boardCellStatus = BoardCellStatus.MISSED;
-        if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED)
-            boardCell.boardCellStatus = BoardCellStatus.HIT;
+        if (boardCell.getBoardCellStatus() == BoardCellStatus.VACANT)
+            boardCell.setBoardCellStatus(BoardCellStatus.MISSED);
+        if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED)
+            boardCell.setBoardCellStatus(BoardCellStatus.HIT);
         numAttacksMade++;
     }
 
-    public int getNumUpgradesLeft() {
+    private int getNumUpgradesLeft() {
         return numUpgradesAllowed - numUpgradesMade;
     }
 
-    boolean canUpgrade() {
+    private boolean canUpgrade() {
         return isAlive() && getNumUpgradesLeft() > 0;
     }
 
-    public void upgrade() {
+    private void upgrade() {
         numAttacksAllowed++;
         numUpgradesMade++;
     }
 
     public boolean isAlive() {
         for (BoardCell boardCell : boardCells)
-            if (boardCell.boardCellStatus != BoardCellStatus.HIT)
+            if (boardCell.getBoardCellStatus() != BoardCellStatus.HIT)
                 return true;
         return false;
     }

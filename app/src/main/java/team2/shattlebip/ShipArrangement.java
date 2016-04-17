@@ -12,15 +12,15 @@ public class ShipArrangement {
     public boolean checkArrangeLH(AdapterBoard board) {
         for (int i = 0; i < board.getCount(); i++) {
             BoardCell boardCell = board.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 BoardCell boardCell2 = board.getItem(i + 1);
-                if (boardCell2.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                if (boardCell2.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                     BoardCell boardCell3 = board.getItem(i + 2);
-                    if (boardCell3.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                    if (boardCell3.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                         BoardCell boardCell4 = board.getItem(i + 3);
-                        if (boardCell4.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                        if (boardCell4.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                             BoardCell boardCell5 = board.getItem(i + 4);
-                            if (boardCell5.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                            if (boardCell5.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                                 checkL1 = board.getItem(i);
                                 checkL2 = board.getItem(i + 1);
                                 checkL3 = board.getItem(i + 2);
@@ -40,15 +40,15 @@ public class ShipArrangement {
         int boardSize = (int) Math.sqrt(board.getCount());
         for (int i = 0; i < board.getCount(); i++) {
             BoardCell boardCell = board.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 BoardCell boardCell2 = board.getItem(i + boardSize);
-                if (boardCell2.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                if (boardCell2.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                     BoardCell boardCell3 = board.getItem(i + boardSize * 2);
-                    if (boardCell3.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                    if (boardCell3.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                         BoardCell boardCell4 = board.getItem(i + boardSize * 3);
-                        if (boardCell4.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                        if (boardCell4.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                             BoardCell boardCell5 = board.getItem(i + boardSize * 4);
-                            if (boardCell5.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                            if (boardCell5.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                                 checkL1 = board.getItem(i);
                                 checkL2 = board.getItem(i + boardSize);
                                 checkL3 = board.getItem(i + boardSize * 2);
@@ -68,11 +68,11 @@ public class ShipArrangement {
 
         for (int i = 0; i < board.getCount(); i++) {
             BoardCell boardCell = board.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 BoardCell boardCell2 = board.getItem(i + 1);
-                if (boardCell2.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                if (boardCell2.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                     BoardCell boardCell3 = board.getItem(i + 2);
-                    if (boardCell3.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                    if (boardCell3.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                         if ((boardCell3 != checkL1) && (boardCell3 != checkL2) && (boardCell3 != checkL3)
                                 && (boardCell3 != checkL4) && (boardCell3 != checkL5)) {
                             checkM1 = board.getItem(i);
@@ -92,11 +92,11 @@ public class ShipArrangement {
         int boardSize = (int) Math.sqrt(board.getCount());
         for (int i = 0; i < board.getCount(); i++) {
             BoardCell boardCell = board.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 BoardCell boardCell2 = board.getItem(i + boardSize);
-                if (boardCell2.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                if (boardCell2.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                     BoardCell boardCell3 = board.getItem(i + boardSize * 2);
-                    if (boardCell3.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                    if (boardCell3.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                         if ((boardCell3 != checkL1) && (boardCell3 != checkL2) && (boardCell3 != checkL3)
                                 && (boardCell3 != checkL4) && (boardCell3 != checkL5)) {
                             checkM1 = board.getItem(i);
@@ -115,9 +115,9 @@ public class ShipArrangement {
 
         for (int i = 0; i < board.getCount(); i++) {
             BoardCell boardCell = board.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 BoardCell boardCell2 = board.getItem(i + 1);
-                if (boardCell2.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                if (boardCell2.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                     if ((boardCell2 != checkM1) && (boardCell2 != checkM2) && (boardCell2 != checkM3)
                             && (boardCell2 != checkL1) && (boardCell2 != checkL2) && (boardCell2 != checkL3)
                             && (boardCell2 != checkL4) && (boardCell2 != checkL5)) {
@@ -134,9 +134,9 @@ public class ShipArrangement {
         int boardSize = (int) Math.sqrt(board.getCount());
         for (int i = 0; i < board.getCount(); i++) {
             BoardCell boardCell = board.getItem(i);
-            if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
+            if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                 BoardCell boardCell2 = board.getItem(i + boardSize);
-                if (boardCell2.boardCellStatus == BoardCellStatus.OCCUPIED) {
+                if (boardCell2.getBoardCellStatus() == BoardCellStatus.OCCUPIED) {
                     if ((boardCell2 != checkM1) && (boardCell2 != checkM2) && (boardCell2 != checkM3)
                             && (boardCell2 != checkL1) && (boardCell2 != checkL2) && (boardCell2 != checkL3)
                             && (boardCell2 != checkL4) && (boardCell2 != checkL5)) {

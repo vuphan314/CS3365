@@ -29,15 +29,15 @@ public class AdapterBoard extends ArrayAdapter<BoardCell> {
 
         Button button = (Button) view.findViewById(R.id.button_board_cell);
 
-        if (boardCell.boardCellStatus == BoardCellStatus.HIT)
+        if (boardCell.getBoardCellStatus() == BoardCellStatus.HIT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorHit));
-        else if (boardCell.boardCellStatus == BoardCellStatus.MISSED)
+        else if (boardCell.getBoardCellStatus() == BoardCellStatus.MISSED)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorMissed));
 
-        else if (boardCell.playerNum == 2)
+        else if (boardCell.getPlayerNum() == 2)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
 
-        else if (boardCell.boardCellStatus == BoardCellStatus.VACANT)
+        else if (boardCell.getBoardCellStatus() == BoardCellStatus.VACANT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));
         else
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorOccupied));

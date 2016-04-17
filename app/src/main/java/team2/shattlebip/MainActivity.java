@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initializeVariables();
+        setFields();
         enableGame();
     }
 
-    public void enableGame() {
+    private void enableGame() {
         GameState gameState = GameState.getInstance();
         gameState.setFields(this, numCells1side,
                 textViewGameStage, buttonArrange, buttonBattle, buttonRestart,
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         gameState.enableGameRestart();
     }
 
-    public void initializeVariables() {
+    private void setFields() {
         numCells1side = getResources().getInteger(R.integer.board_side_cells_count);
         textViewGameStage = (TextView) findViewById(R.id.text_view_game_stage);
         buttonArrange = (Button) findViewById(R.id.button_arrange);
