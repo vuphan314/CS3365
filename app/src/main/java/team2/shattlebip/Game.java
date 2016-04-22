@@ -145,6 +145,17 @@ public class Game {
         putGameStage(Stage.BATTLING);
 
         enableGameStageAttacking();
+
+        buttonUpgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player1.upgrade();
+
+                buttonUpgrade.setOnClickListener(null);
+
+                letP2attack();
+            }
+        });
     }
 
     private void enableGameStageAttacking() {
@@ -214,7 +225,7 @@ public class Game {
         String msg;
         if (stage == Stage.ARRANGING)
             msg = "tap cell on your board to arrange your " +
-                    player1.getNumShips() + " ship(s)";
+                    player1.getNumShips() + " ships";
         else if (stage == Stage.BATTLING)
             msg = "click ATTACK or UPGRADE";
         else
