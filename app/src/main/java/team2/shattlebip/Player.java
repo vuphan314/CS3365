@@ -4,37 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Vu on 4/3/2016.
+ * @author Vu
  */
 public class Player {
     private int numShipsArranged = 0;
+    private int numShips = 3;
+    private int playerNum;
+    private List<Ship> ships = new ArrayList<>(numShips);
+
+    public Player(int playerNum) {
+        this.playerNum = playerNum;
+
+        Ship ship = new Ship(playerNum, Ship.ShipType.LITTLE_GUY);
+        ships.add(ship);
+        ship = new Ship(playerNum, Ship.ShipType.MIDDLE_MAN);
+        ships.add(ship);
+        ship = new Ship(playerNum, Ship.ShipType.BIG_BOY);
+        ships.add(ship);
+    }
 
     public int getNumShipsArranged() {
         return numShipsArranged;
     }
 
-    private int numShips = 3;
-
     public int getNumShips() {
         return numShips;
     }
 
-    private int playerNum;
-    private List<Ship> ships = new ArrayList<>(numShips);
-
     public List<Ship> getShips() {
         return ships;
-    }
-
-    public Player(int playerNum) {
-        this.playerNum = playerNum;
-
-        Ship ship = new Ship(playerNum, ShipType.LITTLE_GUY);
-        ships.add(ship);
-        ship = new Ship(playerNum, ShipType.MIDDLE_MAN);
-        ships.add(ship);
-        ship = new Ship(playerNum, ShipType.BIG_BOY);
-        ships.add(ship);
     }
 
     private int getNumShipsToArrange() {
@@ -45,10 +43,10 @@ public class Player {
         return getNumShipsToArrange() > 0;
     }
 
-    public void addCell(BoardCell boardCell) {
+    public void addCell(Cell cell) {
         Ship ship = ships.get(numShipsArranged);
 
-        ship.addCell(boardCell);
+        ship.addCell(cell);
         if (!ship.canAddCells())
             numShipsArranged++;
     }
@@ -60,9 +58,9 @@ public class Player {
         return false;
     }
 
-    public void attackCell(BoardCell boardCell) {
+    public void attackCell(Cell cell) {
         Ship ship = getNextShipCanAttack();
-        ship.attackCell(boardCell);
+        ship.attackCell(cell);
     }
 
     public Ship getNextShipCanAttack() {

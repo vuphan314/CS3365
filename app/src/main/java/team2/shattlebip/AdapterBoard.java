@@ -12,32 +12,32 @@ import android.widget.GridView;
 import java.util.List;
 
 /**
- * Created by Vu on 3/3/2016.
+ * @author Vu
  */
-public class AdapterBoard extends ArrayAdapter<BoardCell> {
+public class AdapterBoard extends ArrayAdapter<Cell> {
     LayoutInflater inflater;
 
-    public AdapterBoard(Context context, List<BoardCell> objects) {
+    public AdapterBoard(Context context, List<Cell> objects) {
         super(context, -1, objects);
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.layout_board_cell, parent, false);
-        BoardCell boardCell = getItem(position);
+        View view = inflater.inflate(R.layout.layout_cell, parent, false);
+        Cell cell = getItem(position);
 
         Button button = (Button) view.findViewById(R.id.button_board_cell);
 
-        if (boardCell.getBoardCellStatus() == BoardCellStatus.HIT)
+        if (cell.getStatus() == Cell.Status.HIT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorHit));
-        else if (boardCell.getBoardCellStatus() == BoardCellStatus.MISSED)
+        else if (cell.getStatus() == Cell.Status.MISSED)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorMissed));
 
-        else if (boardCell.getPlayerNum() == 2)
+        else if (cell.getPlayerNum() == 2)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorUnknown));
 
-        else if (boardCell.getBoardCellStatus() == BoardCellStatus.VACANT)
+        else if (cell.getStatus() == Cell.Status.VACANT)
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorVacant));
         else
             button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorOccupied));
@@ -48,6 +48,6 @@ public class AdapterBoard extends ArrayAdapter<BoardCell> {
     public void createBoard(int playerNum, GridView grid, int cells) {
         grid.setAdapter(this);
         for (int i = 0; i < cells; i++)
-            this.add(new BoardCell(playerNum, BoardCellStatus.VACANT));
+            this.add(new Cell(playerNum, Cell.Status.VACANT));
     }
 }

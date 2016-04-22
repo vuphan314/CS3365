@@ -4,37 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Vu on 4/2/2016.
+ * @author Vu
  */
 public class Ship {
     private int numCellsAdded = 0;
     private int numAttacksMade = 0;
-
-    public void setNumAttacksMade(int numAttacksMade) {
-        this.numAttacksMade = numAttacksMade;
-    }
-
     private int numUpgradesMade = 0;
     private int numUpgradesAllowed = 3;
-
     private int playerNum;
     private ShipType shipType;
-
     private int numCells;
-
-    public int getNumCells() {
-        return numCells;
-    }
-
     private int numAttacksAllowed;
-
-    private List<BoardCell> boardCells;
+    private List<Cell> cells;
 
     public Ship(int playerNum, ShipType shipType) {
         this.playerNum = playerNum;
         this.shipType = shipType;
         setShipTypeDependentFields();
-        boardCells = new ArrayList<>(numCells);
+        cells = new ArrayList<>(numCells);
+    }
+
+    public void setNumAttacksMade(int numAttacksMade) {
+        this.numAttacksMade = numAttacksMade;
+    }
+
+    public int getNumCells() {
+        return numCells;
     }
 
     void setShipTypeDependentFields() {
@@ -58,9 +53,9 @@ public class Ship {
         return getNumCellsToAdd() > 0;
     }
 
-    public void addCell(BoardCell boardCell) {
-        boardCell.setBoardCellStatus(BoardCellStatus.OCCUPIED);
-        boardCells.add(boardCell);
+    public void addCell(Cell cell) {
+        cell.setStatus(Cell.Status.OCCUPIED);
+        cells.add(cell);
         numCellsAdded++;
     }
 
@@ -72,11 +67,11 @@ public class Ship {
         return isAlive() && getNumAttacksLeft() > 0;
     }
 
-    public void attackCell(BoardCell boardCell) {
-        if (boardCell.getBoardCellStatus() == BoardCellStatus.VACANT)
-            boardCell.setBoardCellStatus(BoardCellStatus.MISSED);
-        if (boardCell.getBoardCellStatus() == BoardCellStatus.OCCUPIED)
-            boardCell.setBoardCellStatus(BoardCellStatus.HIT);
+    public void attackCell(Cell cell) {
+        if (cell.getStatus() == Cell.Status.VACANT)
+            cell.setStatus(Cell.Status.MISSED);
+        if (cell.getStatus() == Cell.Status.OCCUPIED)
+            cell.setStatus(Cell.Status.HIT);
         numAttacksMade++;
     }
 
@@ -94,9 +89,13 @@ public class Ship {
     }
 
     public boolean isAlive() {
-        for (BoardCell boardCell : boardCells)
-            if (boardCell.getBoardCellStatus() != BoardCellStatus.HIT)
+        for (Cell cell : cells)
+            if (cell.getStatus() != Cell.Status.HIT)
                 return true;
         return false;
+    }
+
+    public enum ShipType {
+        LITTLE_GUY, MIDDLE_MAN, BIG_BOY
     }
 }

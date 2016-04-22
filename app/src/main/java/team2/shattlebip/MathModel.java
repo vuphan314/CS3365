@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by zach on 4/3/2016.
+ * @author Zach
  */
 public class MathModel {
     private static MathModel ourInstance = new MathModel();
@@ -44,14 +44,14 @@ public class MathModel {
             x = random.nextInt(cols);
             y = random.nextInt(cols);
         }
-        while (board.getItem(getPosFromXY()).getBoardCellStatus() == BoardCellStatus.OCCUPIED);
+        while (board.getItem(getPosFromXY()).getStatus() == Cell.Status.OCCUPIED);
     }
 
     //
     private static boolean isNorthValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextY = y - i;
-            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).getBoardCellStatus() == BoardCellStatus.OCCUPIED)
+            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).getStatus() == Cell.Status.OCCUPIED)
                 return false;
         }
 
@@ -60,13 +60,13 @@ public class MathModel {
 
     private static void setNorthPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x, y - i)).setBoardCellStatus(BoardCellStatus.OCCUPIED);
+            board.getItem(getPosFromXY(x, y - i)).setStatus(Cell.Status.OCCUPIED);
     }
 
     private static boolean isEastValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextX = x + i;
-            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).getBoardCellStatus() == BoardCellStatus.OCCUPIED)
+            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).getStatus() == Cell.Status.OCCUPIED)
                 return false;
         }
 
@@ -75,13 +75,13 @@ public class MathModel {
 
     private static void setEastPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x + i, y)).setBoardCellStatus(BoardCellStatus.OCCUPIED);
+            board.getItem(getPosFromXY(x + i, y)).setStatus(Cell.Status.OCCUPIED);
     }
 
     private static boolean isSouthValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextY = y + -i;
-            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).getBoardCellStatus() == BoardCellStatus.OCCUPIED)
+            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).getStatus() == Cell.Status.OCCUPIED)
                 return false;
         }
 
@@ -90,13 +90,13 @@ public class MathModel {
 
     private static void setSouthPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x, y + i)).setBoardCellStatus(BoardCellStatus.OCCUPIED);
+            board.getItem(getPosFromXY(x, y + i)).setStatus(Cell.Status.OCCUPIED);
     }
 
     private static boolean isWestValid(int size) {
         for (int i = 0; i < size; i++) {
             int nextX = x - i;
-            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).getBoardCellStatus() == BoardCellStatus.OCCUPIED)
+            if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).getStatus() == Cell.Status.OCCUPIED)
                 return false;
         }
 
@@ -105,7 +105,7 @@ public class MathModel {
 
     private static void setWestPlacement(int size) {
         for (int i = 0; i < size; i++)
-            board.getItem(getPosFromXY(x - i, y)).setBoardCellStatus(BoardCellStatus.OCCUPIED);
+            board.getItem(getPosFromXY(x - i, y)).setStatus(Cell.Status.OCCUPIED);
     }
 
     //performs random sampling

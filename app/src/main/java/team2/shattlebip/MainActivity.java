@@ -8,8 +8,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * @author Vu
+ */
 public class MainActivity extends AppCompatActivity {
-    int numCells1side;
+    int numCellsBoardSide;
     TextView textViewGameStage;
     Button buttonArrange, buttonBattle, buttonRestart;
     GridView gridViewBoard1, gridViewBoard2;
@@ -26,17 +29,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void enableGame() {
-        GameState gameState = GameState.getInstance();
-        gameState.setFields(this, numCells1side,
+        Game game = Game.getInstance();
+        game.setFields(this, numCellsBoardSide,
                 textViewGameStage, buttonArrange, buttonBattle, buttonRestart,
                 gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2, player1, player2);
 
-        gameState.start();
-        gameState.enableGameRestart();
+        game.start();
+        game.enableGameRestart();
     }
 
     private void setFields() {
-        numCells1side = getResources().getInteger(R.integer.board_side_cells_count);
+        numCellsBoardSide = getResources().getInteger(R.integer.num_cells_board_side);
         textViewGameStage = (TextView) findViewById(R.id.text_view_game_stage);
         buttonArrange = (Button) findViewById(R.id.button_arrange);
         buttonBattle = (Button) findViewById(R.id.button_battle);
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 //        buttonUpgrade = (Button) findViewById(R.id.button_upgrade);
         gridViewBoard1 = (GridView) findViewById(R.id.gridViewBoard1);
         gridViewBoard2 = (GridView) findViewById(R.id.gridViewBoard2);
-        adapterBoard1 = new AdapterBoard(this, new ArrayList<BoardCell>());
-        adapterBoard2 = new AdapterBoard(this, new ArrayList<BoardCell>());
+        adapterBoard1 = new AdapterBoard(this, new ArrayList<Cell>());
+        adapterBoard2 = new AdapterBoard(this, new ArrayList<Cell>());
     }
 }

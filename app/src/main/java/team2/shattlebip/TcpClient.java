@@ -1,7 +1,7 @@
 package team2.shattlebip;
 
 /**
- * Created by Zach on 3/6/2016.
+ * @author Zach
  */
 public class TcpClient {
     private String IpAddress = "99.64.48.184";

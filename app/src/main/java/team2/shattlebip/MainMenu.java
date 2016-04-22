@@ -6,12 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-
 /**
- * Created by Paul on 3/7/2016.
+ * @author Paul
  */
 public class MainMenu extends AppCompatActivity implements View.OnClickListener {
-
     Button button1;
 
     @Override
@@ -32,7 +30,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             case R.id.button2:
                 button2Click();
                 break;
-
         }
     }
 }

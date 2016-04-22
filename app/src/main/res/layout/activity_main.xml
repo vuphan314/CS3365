@@ -86,29 +86,29 @@
 
 
         <Button
-            style="@style/StyleButtonLegend"
+            style="@style/StyleButtonColor"
             android:background="@color/colorVacant"
-            android:text="@string/board_cell_status_vacant" />
+            android:text="@string/cell_status_vacant" />
 
         <Button
-            style="@style/StyleButtonLegend"
+            style="@style/StyleButtonColor"
             android:background="@color/colorOccupied"
-            android:text="@string/board_cell_status_occupied" />
+            android:text="@string/cell_status_occupied" />
 
         <Button
-            style="@style/StyleButtonLegend"
+            style="@style/StyleButtonColor"
             android:background="@color/colorUnknown"
             android:text="unknown" />
 
         <Button
-            style="@style/StyleButtonLegend"
+            style="@style/StyleButtonColor"
             android:background="@color/colorHit"
-            android:text="@string/board_cell_status_hit" />
+            android:text="@string/cell_status_hit" />
 
         <Button
-            style="@style/StyleButtonLegend"
+            style="@style/StyleButtonColor"
             android:background="@color/colorMissed"
-            android:text="@string/board_cell_status_missed" />
+            android:text="@string/cell_status_missed" />
     </LinearLayout>
 
     <!--<TextView-->
