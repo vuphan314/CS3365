@@ -45,9 +45,9 @@ public class AdapterBoard extends ArrayAdapter<Cell> {
         return view;
     }
 
-    public void createBoard(int playerNum, GridView grid, int cells) {
-        grid.setAdapter(this);
-        for (int i = 0; i < cells; i++)
+    public void addCells(GridView gridView, int playerNum, int numCells) {
+        gridView.setAdapter(this);
+        for (int i = 0; i < numCells; i++)
             this.add(new Cell(playerNum, Cell.Status.VACANT));
     }
 }

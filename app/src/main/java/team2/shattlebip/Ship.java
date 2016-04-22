@@ -83,7 +83,7 @@ public class Ship {
         return isAlive() && getNumUpgradesLeft() > 0;
     }
 
-    private void upgrade() {
+    public void upgrade() {
         numAttacksAllowed++;
         numUpgradesMade++;
     }

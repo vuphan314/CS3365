@@ -38,7 +38,7 @@ public class MathModel {
         return x * cols + y;
     }
 
-    //find random cell to start from
+    //find random cell to initialize from
     private static void getEmptyCell() {
         do {
             x = random.nextInt(cols);

@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class MainActivity extends AppCompatActivity {
     int numCellsBoardSide;
-    TextView textViewGameStage;
-    Button buttonArrange, buttonBattle, buttonRestart;
+    TextView textViewGameStage, textViewMessage;
+    Button buttonAttack, buttonUpgrade, buttonRestart;
     GridView gridViewBoard1, gridViewBoard2;
     AdapterBoard adapterBoard1, adapterBoard2;
     Player player1, player2;
@@ -31,20 +31,21 @@ public class MainActivity extends AppCompatActivity {
     private void enableGame() {
         Game game = Game.getInstance();
         game.setFields(this, numCellsBoardSide,
-                textViewGameStage, buttonArrange, buttonBattle, buttonRestart,
-                gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2, player1, player2);
+                textViewGameStage, textViewMessage, buttonAttack, buttonUpgrade,
+                buttonRestart,
+                gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2,
+                player1, player2);
 
-        game.start();
-        game.enableGameRestart();
+        game.initialize();
     }
 
     private void setFields() {
         numCellsBoardSide = getResources().getInteger(R.integer.num_cells_board_side);
         textViewGameStage = (TextView) findViewById(R.id.text_view_game_stage);
-        buttonArrange = (Button) findViewById(R.id.button_arrange);
-        buttonBattle = (Button) findViewById(R.id.button_battle);
-        buttonRestart = (Button) findViewById(R.id.button_restart);
-//        buttonUpgrade = (Button) findViewById(R.id.button_upgrade);
+        textViewMessage = (TextView) findViewById(R.id.text_view_message);
+        buttonRestart = (Button) findViewById(R.id.button_initialize);
+        buttonAttack = (Button) findViewById(R.id.button_attack);
+        buttonUpgrade = (Button) findViewById(R.id.button_upgrade);
         gridViewBoard1 = (GridView) findViewById(R.id.gridViewBoard1);
         gridViewBoard2 = (GridView) findViewById(R.id.gridViewBoard2);
         adapterBoard1 = new AdapterBoard(this, new ArrayList<Cell>());

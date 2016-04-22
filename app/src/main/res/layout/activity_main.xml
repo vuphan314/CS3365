@@ -45,75 +45,76 @@
         android:layout_alignParentRight="true"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Controls" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_arrange"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTION" />
+
+            <Button
+                android:id="@+id/button_attack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ATTACK" />
+
+            <Button
+                android:id="@+id/button_upgrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UPGRADE" />
+
+            <Button
+                android:id="@+id/button_initialize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESTART" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ARRANGE" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_battle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BATTLE" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Appearance" />
 
-        <Button
-            android:id="@+id/button_restart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESTART" />
+            <Button
+                style="@style/StyleButtonColor"
+                android:background="@color/colorVacant"
+                android:text="@string/cell_status_vacant" />
 
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Turn Controls" />-->
+            <Button
+                style="@style/StyleButtonColor"
+                android:background="@color/colorOccupied"
+                android:text="@string/cell_status_occupied" />
 
-        <!--<Button-->
-        <!--android:id="@+id/button_upgrade"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="UPGRADE" />-->
+            <Button
+                style="@style/StyleButtonColor"
+                android:background="@color/colorUnknown"
+                android:text="unknown" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Color Codes" />
+            <Button
+                style="@style/StyleButtonColor"
+                android:background="@color/colorHit"
+                android:text="@string/cell_status_hit" />
 
-
-        <Button
-            style="@style/StyleButtonColor"
-            android:background="@color/colorVacant"
-            android:text="@string/cell_status_vacant" />
-
-        <Button
-            style="@style/StyleButtonColor"
-            android:background="@color/colorOccupied"
-            android:text="@string/cell_status_occupied" />
-
-        <Button
-            style="@style/StyleButtonColor"
-            android:background="@color/colorUnknown"
-            android:text="unknown" />
-
-        <Button
-            style="@style/StyleButtonColor"
-            android:background="@color/colorHit"
-            android:text="@string/cell_status_hit" />
-
-        <Button
-            style="@style/StyleButtonColor"
-            android:background="@color/colorMissed"
-            android:text="@string/cell_status_missed" />
+            <Button
+                style="@style/StyleButtonColor"
+                android:background="@color/colorMissed"
+                android:text="@string/cell_status_missed" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:text="Every 2 of your 3 ships must share no point (not even a corner)" />-->
+    <TextView
+        android:id="@+id/text_view_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

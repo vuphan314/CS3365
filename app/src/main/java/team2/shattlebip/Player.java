@@ -73,12 +73,17 @@ public class Player {
         return ship;
     }
 
+    public void upgrade() {
+        for (Ship ship : ships)
+            ship.upgrade();
+    }
+
     public void resetNumsAttacksMade() {
         for (Ship ship : ships)
             ship.setNumAttacksMade(0);
     }
 
-    private int getNumShipsAlive() {
+    public int getNumShipsAlive() {
         int numShipsAlive = 0;
         for (Ship ship : ships)
             if (ship.isAlive())
