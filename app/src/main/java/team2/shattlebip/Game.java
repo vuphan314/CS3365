@@ -62,6 +62,11 @@ public class Game {
             }
         });
 
+        buttonAttack.setOnClickListener(null);
+        buttonUpgrade.setOnClickListener(null);
+        gridViewBoard1.setOnItemClickListener(null);
+        gridViewBoard2.setOnItemClickListener(null);
+
         adapterBoard1.clear();
         adapterBoard2.clear();
         adapterBoard1.addCells(gridViewBoard1, 1, getNumCellsBoardArea());
@@ -235,7 +240,7 @@ public class Game {
     }
 
     private void setMessage(String msg) {
-        textViewMessage.setText(msg);
+        textViewMessage.setText("Message: " + msg);
     }
 
     private int getNumCellsBoardArea() {

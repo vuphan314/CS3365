@@ -18,7 +18,8 @@
         <TextView
             android:id="@+id/text_view_game_stage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="game stage..." />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,7 +75,6 @@
                 android:text="RESTART" />
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,5 +116,6 @@
         android:id="@+id/text_view_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        tools:text="message..." />
 </RelativeLayout>

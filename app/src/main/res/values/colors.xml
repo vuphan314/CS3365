@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-
     <color name="colorHit">#ffff0000</color>
     <color name="colorMissed">#ffffff00</color>
     <color name="colorUnknown">#ff888888</color>

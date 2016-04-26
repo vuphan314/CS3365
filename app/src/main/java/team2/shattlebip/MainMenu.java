@@ -15,7 +15,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mm_main);
+        setContentView(R.layout.main_menu);
+
         button1 = (Button) findViewById(R.id.button2);
         button1.setOnClickListener(this);
     }
