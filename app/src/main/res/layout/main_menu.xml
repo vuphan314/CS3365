@@ -58,8 +58,5 @@
             android:layout_margin="10dp"
             android:background="#BBDEFB"
             android:text="  Credits  " />
-
     </LinearLayout>
-
-
 </RelativeLayout>

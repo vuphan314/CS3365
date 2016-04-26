@@ -147,5 +147,4 @@ public class ShipArrangement {
         }
         return false;
     }
-
 }

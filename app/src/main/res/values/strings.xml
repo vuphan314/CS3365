@@ -1,13 +1,8 @@
 <resources>
     <string name="app_name">ShattleBip</string>
 
-
     <string name="cell_status_vacant">vacant</string>
     <string name="cell_status_occupied">occupied</string>
     <string name="cell_status_hit">hit</string>
     <string name="cell_status_missed">missed</string>
-
-    <!--<string name="game_stage_initialized">initialized</string>-->
-    <!--<string name="game_stage_arranging">arranging</string>-->
-    <!--<string name="game_stage_battling">battling</string>-->
 </resources>

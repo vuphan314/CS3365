@@ -10,9 +10,9 @@
     tools:context="team2.shattlebip.MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:orientation="vertical">
 
         <TextView
@@ -20,6 +20,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="game stage..." />
+
+        <TextView
+            android:id="@+id/text_view_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="message... well a message can be pretty long and span two lines" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/layout_top"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/layout_top"
         android:orientation="vertical">
 
         <LinearLayout
@@ -83,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Appearance" />
+                android:text="appearance" />
 
             <Button
                 style="@style/StyleButtonColor"
@@ -111,11 +126,4 @@
                 android:text="@string/cell_status_missed" />
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/text_view_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        tools:text="message..." />
 </RelativeLayout>
