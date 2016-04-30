@@ -4,8 +4,7 @@
   - team 2
     - Zach
     - Paul
-    - Vu
-      - vu.phan@ttu.edu
+    - [Vu](mailto:vu.phan@ttu.edu)
 
 ## **INSTALL GUIDE**
 - in Android Studio
