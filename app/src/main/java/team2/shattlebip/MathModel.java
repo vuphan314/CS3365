@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Vu integrated cell addition
+ *
  * @author Zach
  */
 public class MathModel {
@@ -15,16 +17,16 @@ public class MathModel {
     private static int x, y, cols;
     private static Random random = new Random();
 
-    public static MathModel getInstance() {
-        if (ourInstance == null)
-            ourInstance = new MathModel();
-        return ourInstance;
-    }
-
     private MathModel() {
         x = 0;
         y = 0;
         cols = 1;
+    }
+
+    public static MathModel getInstance() {
+        if (ourInstance == null)
+            ourInstance = new MathModel();
+        return ourInstance;
     }
 
     private static void setXYFromPos(int cols, int pos) {
@@ -63,7 +65,6 @@ public class MathModel {
 
     private static void setNorthPlacement(int size) {
         for (int i = 0; i < size; i++)
-//            adapterBoard.getItem(getPosFromXY(x, y - i)).setStatus(Cell.Status.OCCUPIED);
             player.addCell(adapterBoard.getItem(getPosFromXY(x, y - i)));
     }
 
@@ -80,7 +81,6 @@ public class MathModel {
 
     private static void setEastPlacement(int size) {
         for (int i = 0; i < size; i++)
-//            adapterBoard.getItem(getPosFromXY(x + i, y)).setStatus(Cell.Status.OCCUPIED);
             player.addCell(adapterBoard.getItem(getPosFromXY(x + i, y)));
     }
 
@@ -97,7 +97,6 @@ public class MathModel {
 
     private static void setSouthPlacement(int size) {
         for (int i = 0; i < size; i++)
-//            adapterBoard.getItem(getPosFromXY(x, y + i)).setStatus(Cell.Status.OCCUPIED);
             player.addCell(adapterBoard.getItem(getPosFromXY(x, y + i)));
     }
 
@@ -116,7 +115,6 @@ public class MathModel {
 
     private static void setWestPlacement(int size) {
         for (int i = 0; i < size; i++)
-//            adapterBoard.getItem(getPosFromXY(x - i, y)).setStatus(Cell.Status.OCCUPIED);
             player.addCell(adapterBoard.getItem(getPosFromXY(x - i, y)));
     }
 

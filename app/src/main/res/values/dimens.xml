@@ -3,6 +3,6 @@
     <dimen name="activity_horizontal_margin">1dp</dimen>
     <dimen name="activity_vertical_margin">1dp</dimen>
     
-    <dimen name="cell_side_length">33dp</dimen>
+    <dimen name="cell_side_length">32dp</dimen>
     <dimen name="cells_gap_length">1dp</dimen>
 </resources>

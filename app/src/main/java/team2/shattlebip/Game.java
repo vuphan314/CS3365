@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.util.Random;
 
 /**
+ * Call methods defined by Zach, Paul
+ * Zach replaced game stage string with enum
+ *
  * @author Vu
  */
 public class Game {
@@ -34,8 +37,7 @@ public class Game {
 
     public void setFields(Context context, int numCells1side,
                           TextView textViewGameStage, TextView textViewMessage,
-                          Button buttonAttack, Button buttonUpgrade,
-                          Button buttonRestart,
+                          Button buttonAttack, Button buttonUpgrade, Button buttonRestart,
                           GridView gridViewBoard1, GridView gridViewBoard2,
                           AdapterBoard adapterBoard1, AdapterBoard adapterBoard2,
                           Player player1, Player player2) {
@@ -61,11 +63,7 @@ public class Game {
                 initialize();
             }
         });
-
-        buttonAttack.setOnClickListener(null);
-        buttonUpgrade.setOnClickListener(null);
-        gridViewBoard1.setOnItemClickListener(null);
-        gridViewBoard2.setOnItemClickListener(null);
+        disableClicking();
 
         adapterBoard1.clear();
         adapterBoard2.clear();
@@ -80,31 +78,12 @@ public class Game {
 
     private void letP2arrange() {
 //        generateShipPlacementDeprecated();
-
-        //TODO uncomment after Zach fixes errors
         MathModel.generateShipPlacement(player2, adapterBoard2, numCells1side);
-
         enableGameStageArranging();
-    }
-
-    private void generateShipPlacementDeprecated() {
-        Random random = new Random();
-        for (int i = 0; i < player2.getNumShips(); i++) {
-            Ship ship = player2.getShips().get(i);
-            int randomRow = i * 2 + random.nextInt(2),
-                    randomColumn = random.nextInt(2),
-                    randomPosition = randomRow * numCells1side + randomColumn;
-            for (int j = 0; j < ship.getNumCells(); j++) {
-                Cell cell = adapterBoard2.getItem(randomPosition + j);
-                cell.setStatus(Cell.Status.OCCUPIED);
-                ship.addCell(cell);
-            }
-        }
     }
 
     private void enableGameStageArranging() {
         putGameStage(Stage.ARRANGING);
-
         letP1arrange();
     }
 
@@ -124,7 +103,7 @@ public class Game {
                     gridViewBoard1.setOnItemClickListener(null);
                     enableGameStageBattling();
 
-                    //TODO uncomment after Paul fixes errors
+//                    TODO uncomment after Paul fixes errors
 //                    checkArrange();
                 }
             }
@@ -154,16 +133,13 @@ public class Game {
 
     private void enableGameStageBattling() {
         putGameStage(Stage.BATTLING);
-
         enableGameStageAttacking();
 
         buttonUpgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player1.upgrade();
-
                 buttonUpgrade.setOnClickListener(null);
-
                 letP2attack();
             }
         });
@@ -174,9 +150,7 @@ public class Game {
             @Override
             public void onClick(View v) {
                 putGameStage(Stage.ATTACKING);
-
                 buttonAttack.setOnClickListener(null);
-
                 letP1attack();
             }
         });
@@ -190,9 +164,10 @@ public class Game {
                 player1.attackCell(cell);
                 adapterBoard2.notifyDataSetChanged();
 
-                if (!player2.isAlive())
+                if (!player2.isAlive()) {
+                    disableClicking();
                     setMessage("you won; click RESTART");
-                else if (player1.canAttack()) {
+                } else if (player1.canAttack()) {
                     Ship ship = player1.getNextShipCanAttack();
                     setMessage(ship.getNumAttacksLeft() + " attack(s) left for your ship " +
                             (player1.getShips().indexOf(ship) + 1));
@@ -219,9 +194,10 @@ public class Game {
         adapterBoard1.notifyDataSetChanged();
         player2.resetNumsAttacksMade();
 
-        if (!player1.isAlive())
+        if (!player1.isAlive()) {
+            disableClicking();
             setMessage("you lost; click RESTART");
-        else
+        } else
             enableGameStageBattling();
     }
 
@@ -249,8 +225,30 @@ public class Game {
         textViewMessage.setText("Message: " + msg);
     }
 
+    private void disableClicking() {
+        buttonAttack.setOnClickListener(null);
+        buttonUpgrade.setOnClickListener(null);
+        gridViewBoard1.setOnItemClickListener(null);
+        gridViewBoard2.setOnItemClickListener(null);
+    }
+
     private int getNumCellsBoardArea() {
         return (int) Math.pow(numCells1side, 2);
+    }
+
+    private void generateShipPlacementDeprecated() {
+        Random random = new Random();
+        for (int i = 0; i < player2.getNumShips(); i++) {
+            Ship ship = player2.getShips().get(i);
+            int randomRow = i * 2 + random.nextInt(2),
+                    randomColumn = random.nextInt(2),
+                    randomPosition = randomRow * numCells1side + randomColumn;
+            for (int j = 0; j < ship.getNumCells(); j++) {
+                Cell cell = adapterBoard2.getItem(randomPosition + j);
+                cell.setStatus(Cell.Status.OCCUPIED);
+                ship.addCell(cell);
+            }
+        }
     }
 
     public enum Stage {

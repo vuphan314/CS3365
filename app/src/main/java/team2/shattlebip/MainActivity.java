@@ -30,12 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void enableGame() {
         Game game = Game.getInstance();
-        game.setFields(this, numCellsBoardSide,
-                textViewGameStage, textViewMessage, buttonAttack, buttonUpgrade,
-                buttonRestart,
+        game.setFields(this, numCellsBoardSide, textViewGameStage, textViewMessage,
+                buttonAttack, buttonUpgrade, buttonRestart,
                 gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2,
                 player1, player2);
-
         game.initialize();
     }
 
