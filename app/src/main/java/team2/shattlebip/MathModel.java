@@ -13,21 +13,23 @@ public class MathModel {
     private static int x, y, cols;
     private static Random random = new Random();
 
-    private MathModel() {
-        x = 0;
-        y = 0;
-        cols = 1;
-    }
-
     public static MathModel getInstance() {
         if (ourInstance == null)
             ourInstance = new MathModel();
         return ourInstance;
     }
 
-    private static void setXYFromPos(int cols, int pos) {
-        x = pos / cols;
-        y = pos % cols;
+    private MathModel()
+    {
+        x = 0;
+        y = 0;
+        cols = 1;
+    }
+
+    private static void setXYFromPos(int cols, int pos)
+    {
+        x = pos % cols;
+        y = pos / cols;
     }
 
     private static int getPosFromXY() {
@@ -48,12 +50,15 @@ public class MathModel {
     }
 
     //
-    private static boolean isNorthValid(int size) {
-        for (int i = 0; i < size; i++) {
-            int nextY = y - i;
-            if (nextY < 0 || board.getItem(getPosFromXY(x, nextY)).getStatus() == Cell.Status.OCCUPIED)
+    private static boolean isNorthValid(int size)
+    {
+        if (y - size < 0)
+            return false;
+
+        int source = getPosFromXY(x, y);
+        for (int i = 0; i < size; i++)
+            if (board.getItem(source - i).status == BoardCellStatus.OCCUPIED)
                 return false;
-        }
 
         return true;
     }
@@ -63,12 +68,14 @@ public class MathModel {
             board.getItem(getPosFromXY(x, y - i)).setStatus(Cell.Status.OCCUPIED);
     }
 
-    private static boolean isEastValid(int size) {
-        for (int i = 0; i < size; i++) {
-            int nextX = x + i;
-            if (nextX >= cols || board.getItem(getPosFromXY(nextX, y)).getStatus() == Cell.Status.OCCUPIED)
+    private static boolean isEastValid(int size)
+    {
+        if (x + size > cols)
+            return false;
+
+        for (int i = 0; i < size; i++)
+            if (board.getItem(getPosFromXY(x + i, y)).status == BoardCellStatus.OCCUPIED)
                 return false;
-        }
 
         return true;
     }
@@ -78,12 +85,14 @@ public class MathModel {
             board.getItem(getPosFromXY(x + i, y)).setStatus(Cell.Status.OCCUPIED);
     }
 
-    private static boolean isSouthValid(int size) {
-        for (int i = 0; i < size; i++) {
-            int nextY = y + -i;
-            if (nextY >= cols || board.getItem(getPosFromXY(x, y + i)).getStatus() == Cell.Status.OCCUPIED)
+    private static boolean isSouthValid(int size)
+    {
+        if (y + size > cols)
+            return false;
+
+        for (int i = 0; i < size; i++)
+            if (board.getItem(getPosFromXY(x, y + i)).status == BoardCellStatus.OCCUPIED)
                 return false;
-        }
 
         return true;
     }
@@ -93,8 +102,13 @@ public class MathModel {
             board.getItem(getPosFromXY(x, y + i)).setStatus(Cell.Status.OCCUPIED);
     }
 
-    private static boolean isWestValid(int size) {
-        for (int i = 0; i < size; i++) {
+    private static boolean isWestValid(int size)
+    {
+        if (x - size < 0)
+            return false;
+
+        for (int i = 0; i < size; i++)
+        {
             int nextX = x - i;
             if (nextX < 0 || board.getItem(getPosFromXY(nextX, y)).getStatus() == Cell.Status.OCCUPIED)
                 return false;
@@ -164,10 +178,27 @@ public class MathModel {
         board = adapterBoard;
         cols = dim;
 
-        setPlacement(2); // little guy
-        setPlacement(3); // middle man
-        setPlacement(5); // big boy
+        setPlacement(2); //small
+        setPlacement(3); //medium
+        setPlacement(5); //large
+        //testPlacement();
 
         board.notifyDataSetChanged();
+    }
+
+    private static void testPlacement()
+    {
+        getEmptyCell();
+        //x = 0;
+        //y = 0;
+        if (isEastValid(5))
+        {
+            setEastPlacement(5);
+        }
+        if (isWestValid(5))
+        {
+            setWestPlacement(5);
+        }
+
     }
 }
