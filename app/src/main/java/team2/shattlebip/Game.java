@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class Game {
     private static Game instance;
-    Context context;
     Stage stage;
+    Context context;
     int numCells1side;
     TextView textViewGameStage, textViewMessage;
     Button buttonAttack, buttonUpgrade, buttonRestart;
@@ -79,10 +79,20 @@ public class Game {
     }
 
     private void letP2arrange() {
+//        generateShipPlacementDeprecated();
+
+        //TODO uncomment after Zach fixes errors
+        MathModel.generateShipPlacement(player2, adapterBoard2, numCells1side);
+
+        enableGameStageArranging();
+    }
+
+    private void generateShipPlacementDeprecated() {
         Random random = new Random();
         for (int i = 0; i < player2.getNumShips(); i++) {
             Ship ship = player2.getShips().get(i);
-            int randomRow = i * 2 + random.nextInt(2), randomColumn = random.nextInt(2),
+            int randomRow = i * 2 + random.nextInt(2),
+                    randomColumn = random.nextInt(2),
                     randomPosition = randomRow * numCells1side + randomColumn;
             for (int j = 0; j < ship.getNumCells(); j++) {
                 Cell cell = adapterBoard2.getItem(randomPosition + j);
@@ -90,16 +100,12 @@ public class Game {
                 ship.addCell(cell);
             }
         }
-        enableGameStageArranging();
     }
 
     private void enableGameStageArranging() {
         putGameStage(Stage.ARRANGING);
 
         letP1arrange();
-
-        //TODO uncomment after Zach fixes errors
-//        MathModel.generateShipPlacement(adapterBoard2, gridViewBoard2.getNumColumns());
     }
 
     private void letP1arrange() {

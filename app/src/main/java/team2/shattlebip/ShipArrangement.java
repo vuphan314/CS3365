@@ -5,7 +5,6 @@ package team2.shattlebip;
  */
 public class ShipArrangement {
 
-
     Cell checkL1, checkL2, checkL3, checkL4, checkL5;
     Cell checkM1, checkM2, checkM3;
 
