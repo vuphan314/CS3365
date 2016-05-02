@@ -111,9 +111,10 @@ public class GameState {
                 }
                 adapterBoard1.notifyDataSetChanged();
 
-                enableGameStageBattling();
-                //TODO uncomment after Paul fixes errors
-//                checkArrange();
+                //enableGameStageBattling();//
+                checkArrange();
+
+
             }
         });
     }
@@ -126,17 +127,17 @@ public class GameState {
             BoardCell boardCell = adapterBoard1.getItem(i);
             if (boardCell.boardCellStatus == BoardCellStatus.OCCUPIED) {
                 c = c + 1;
-            }
-        }
-        if (c == 10) {
-            if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard)))) {
-                if (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard)))) {
-                    if (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard)))) {
+                if (c == 10) {
+                    if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard)))&&
+                            (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard))))&&
+                            (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard))))) {
                         enableGameStageBattling();
                     }
                 }
             }
+
         }
+
     }
 
     public void enableGameStageBattling() {
