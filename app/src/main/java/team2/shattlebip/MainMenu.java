@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class MainMenu extends AppCompatActivity implements View.OnClickListener {
 
     Button button1;
+    Button button11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,15 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.mm_main);
         button1 = (Button) findViewById(R.id.button2);
         button1.setOnClickListener(this);
+        button11 = (Button) findViewById(R.id.button5);
+        button11.setOnClickListener(this);
     }
 
     private void button2Click() {
         startActivity(new Intent("team2.shattlebip.MainActivity"));
+    }
+    private void button5Click() {
+        startActivity(new Intent("team2.shattlebip.Credits"));
     }
 
     @Override
@@ -38,6 +44,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
             case R.id.button2:
                 button2Click();
                 break;
+
+            case R.id.button5:
+                button5Click();
+                break;
+
 
         }
     }
