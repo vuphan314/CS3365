@@ -101,16 +101,18 @@ public class Game {
                             (player1.getNumShipsArranged() + 1));
                 else {
                     gridViewBoard1.setOnItemClickListener(null);
-                    enableGameStageBattling();
 
-//                    TODO uncomment after Paul fixes errors
-//                    checkArrange();
+//                    todo fix: checkArrange() crashes with ship in last cell (doesn't even return bool)
+                    if (checkArrange())
+                        enableGameStageBattling();
+                    else
+                        setMessage("Invalid arrangement, click RESTART");
                 }
             }
         });
     }
 
-    private void checkArrange() {
+    private boolean checkArrange() {
         ShipArrangement shipArr = new ShipArrangement();
         AdapterBoard adapterBoard = adapterBoard1;
         int c = 0;
@@ -118,17 +120,16 @@ public class Game {
             Cell cell = adapterBoard1.getItem(i);
             if (cell.getStatus() == Cell.Status.OCCUPIED) {
                 c = c + 1;
-            }
-        }
-        if (c == 10) {
-            if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard)))) {
-                if (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard)))) {
-                    if (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard)))) {
-                        enableGameStageBattling();
+                if (c == 10) {
+                    if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard))) &&
+                            (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard)))) &&
+                            (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard))))) {
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
     private void enableGameStageBattling() {
