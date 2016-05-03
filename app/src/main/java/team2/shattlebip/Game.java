@@ -106,7 +106,7 @@ public class Game {
                     if (checkArrange())
                         enableGameStageBattling();
                     else
-                        setMessage("Invalid arrangement, click RESTART");
+                        setMessage("Invalid arrangement; click RESTART");
                 }
             }
         });
@@ -191,15 +191,18 @@ public class Game {
             while (cell.getStatus() == Cell.Status.HIT ||
                     cell.getStatus() == Cell.Status.MISSED);
             player2.attackCell(cell);
-        }
-        adapterBoard1.notifyDataSetChanged();
-        player2.resetNumsAttacksMade();
+            adapterBoard1.notifyDataSetChanged();
 
-        if (!player1.isAlive()) {
-            disableClicking();
-            setMessage("you lost; click RESTART");
-        } else
+            if (!player1.isAlive()) {
+                disableClicking();
+                setMessage("you lost; click RESTART");
+                break;
+            }
+        }
+        if (player1.isAlive()) {
+            player2.resetNumsAttacksMade();
             enableGameStageBattling();
+        }
     }
 
     private void putGameStage(Stage stage) {
