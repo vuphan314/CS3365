@@ -19,8 +19,8 @@
     - click `Add root`
   - click `VCS`/`Git`/`Branches...`
     - click `Check out Tag or Revision`
-      - type `<tagname>`
-        - for example: `i4d` (iteration 4 draft)
+      - type `<tag>`
+        - for instance: a `<tag>` is `i4d` (iteration 4 draft)
       - click `OK`
   - click `Run`/`Run 'app'`
   - (popup) `Do you want to uninstall the existing application?`
