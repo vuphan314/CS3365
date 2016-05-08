@@ -156,6 +156,7 @@ public class Game {
             @Override
             public void onClick(View v) {
                 putGameStage(Stage.ATTACKING);
+                buttonUpgrade.setOnClickListener(null);
                 buttonAttack.setOnClickListener(null);
                 letP1attack();
             }
