@@ -33,25 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#BBDEFB"
-            android:text="PLAY AGAINST BOT" />
-
-        <Button
-            android:visibility="gone"
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#BBDEFB"
-            android:text="  Find Match  " />
-
-        <Button
-            android:visibility="gone"
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#BBDEFB"
-            android:text="  Leaderboard  " />
+            android:text="@string/button_play" />
 
         <Button
             android:id="@+id/button5"
@@ -59,6 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="#BBDEFB"
-            android:text="  Credits  " />
+            android:text="@string/button_credits" />
     </LinearLayout>
 </RelativeLayout>

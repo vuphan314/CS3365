@@ -12,16 +12,25 @@ import android.widget.GridView;
 import java.util.List;
 
 /**
+ * programmatically inflates game boards as gridViews
+ *
  * @author Vu
+ *         Zach applied design pattern
  */
 public class AdapterBoard extends ArrayAdapter<Cell> {
-    LayoutInflater inflater;
+    private LayoutInflater inflater;
 
+    /**
+     * adopted from Frank Ibem's course
+     */
     public AdapterBoard(Context context, List<Cell> objects) {
         super(context, -1, objects);
         inflater = LayoutInflater.from(context);
     }
 
+    /**
+     * sets appearance color according to playerNum and cell.Status
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.layout_cell, parent, false);
@@ -45,6 +54,9 @@ public class AdapterBoard extends ArrayAdapter<Cell> {
         return view;
     }
 
+    /**
+     * populates board with vacant cells
+     */
     public void addCells(GridView gridView, int playerNum, int numCells) {
         gridView.setAdapter(this);
         for (int i = 0; i < numCells; i++)

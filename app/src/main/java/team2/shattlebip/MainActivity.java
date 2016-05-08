@@ -9,16 +9,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
+ * android activity for game play
+ *
  * @author Vu
  */
 public class MainActivity extends AppCompatActivity {
-    int numCellsBoardSide;
-    TextView textViewGameStage, textViewMessage;
-    Button buttonAttack, buttonUpgrade, buttonRestart;
-    GridView gridViewBoard1, gridViewBoard2;
-    AdapterBoard adapterBoard1, adapterBoard2;
-    Player player1, player2;
+    private int numCellsBoardSide;
+    private TextView textViewGameStage, textViewMessage;
+    private Button buttonAttack, buttonUpgrade, buttonRestart;
+    private GridView gridViewBoard1, gridViewBoard2;
+    private AdapterBoard adapterBoard1, adapterBoard2;
 
+    /**
+     * passes variables to class Game and initializes game
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Game game = Game.getInstance();
         game.setFields(this, numCellsBoardSide, textViewGameStage, textViewMessage,
                 buttonAttack, buttonUpgrade, buttonRestart,
-                gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2,
-                player1, player2);
+                gridViewBoard1, gridViewBoard2, adapterBoard1, adapterBoard2);
         game.initialize();
     }
 

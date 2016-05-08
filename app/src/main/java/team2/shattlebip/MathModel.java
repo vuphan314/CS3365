@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Vu integrated cell addition
- *
  * @author Zach
+ *         Vu integrated cell addition
  */
 public class MathModel {
     static private Player player;

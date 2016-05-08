@@ -10,37 +10,42 @@ import android.widget.TextView;
 import java.util.Random;
 
 /**
- * Call methods defined by Zach, Paul
- * Zach replaced game stage string with enum
+ * controls game flow
  *
- * @author Vu
+ * @author Vu calls methods defined by Zach, Paul
+ *         Zach applies design pattern and replaced game stage strings with enums
  */
 public class Game {
     private static Game instance;
-    Stage stage;
-    Context context;
-    int numCells1side;
-    TextView textViewGameStage, textViewMessage;
-    Button buttonAttack, buttonUpgrade, buttonRestart;
-    GridView gridViewBoard1, gridViewBoard2;
-    AdapterBoard adapterBoard1, adapterBoard2;
-    Player player1, player2;
+    private Stage stage;
+    private Context context;
+    private int numCells1side;
+    private TextView textViewGameStage, textViewMessage;
+    private Button buttonAttack, buttonUpgrade, buttonRestart;
+    private GridView gridViewBoard1, gridViewBoard2;
+    private AdapterBoard adapterBoard1, adapterBoard2;
+    private Player player1, player2;
 
     private Game() {
     }
 
+    /**
+     * Zach's singleton pattern
+     */
     public static Game getInstance() {
         if (instance == null)
             instance = new Game();
         return instance;
     }
 
+    /**
+     * passes variables from MainActivity
+     */
     public void setFields(Context context, int numCells1side,
                           TextView textViewGameStage, TextView textViewMessage,
                           Button buttonAttack, Button buttonUpgrade, Button buttonRestart,
                           GridView gridViewBoard1, GridView gridViewBoard2,
-                          AdapterBoard adapterBoard1, AdapterBoard adapterBoard2,
-                          Player player1, Player player2) {
+                          AdapterBoard adapterBoard1, AdapterBoard adapterBoard2) {
         this.context = context;
         this.numCells1side = numCells1side;
         this.textViewGameStage = textViewGameStage;
@@ -52,10 +57,11 @@ public class Game {
         this.gridViewBoard2 = gridViewBoard2;
         this.adapterBoard1 = adapterBoard1;
         this.adapterBoard2 = adapterBoard2;
-        this.player1 = player1;
-        this.player2 = player2;
     }
 
+    /**
+     * [re]starts game by clearing boards and letting bot secretly arrange its fleet
+     */
     public void initialize() {
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +84,7 @@ public class Game {
 
     private void letP2arrange() {
 //        generateShipPlacementDeprecated();
-        MathModel.generateShipPlacement(player2, adapterBoard2, numCells1side);
+        MathModel.generateShipPlacement(player2, adapterBoard2, numCells1side); // Zach's code
         enableGameStageArranging();
     }
 
@@ -102,8 +108,7 @@ public class Game {
                 else {
                     gridViewBoard1.setOnItemClickListener(null);
 
-//                    todo fix: checkArrange() crashes with ship in last cell (doesn't even return bool)
-                    if (checkArrange())
+                    if (checkArrange()) // Paul's code
                         enableGameStageBattling();
                     else
                         setMessage("Invalid arrangement; click RESTART");
@@ -240,6 +245,8 @@ public class Game {
         return (int) Math.pow(numCells1side, 2);
     }
 
+    //    Vu's naive approach to weakly randomizing bot's fleet arrangement
+    //    Now use Zach's approach instead
     private void generateShipPlacementDeprecated() {
         Random random = new Random();
         for (int i = 0; i < player2.getNumShips(); i++) {
@@ -255,7 +262,7 @@ public class Game {
         }
     }
 
-    public enum Stage {
+    private enum Stage {
         ARRANGING, BATTLING, ATTACKING
     }
 }

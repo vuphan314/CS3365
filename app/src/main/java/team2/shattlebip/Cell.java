@@ -1,6 +1,8 @@
 package team2.shattlebip;
 
 /**
+ * each cell on game board
+ *
  * @author Vu
  */
 public class Cell {

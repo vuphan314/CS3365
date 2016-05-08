@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * player's fleet: how many ships have been arranged, which ship is attacking,...
+ *
  * @author Vu
  */
 public class Player {
@@ -12,6 +14,13 @@ public class Player {
     private int playerNum;
     private List<Ship> ships = new ArrayList<>(numShips);
 
+    /**
+     * fleet:
+     * - little guy: occupies 2 cells, has 1 attack initially
+     * - middle man: 3, 2
+     * - big boy: 5, 3
+     * each upgrade increments attack count of each (alive) ship
+     */
     public Player(int playerNum) {
         this.playerNum = playerNum;
 
@@ -43,6 +52,9 @@ public class Player {
         return getNumShipsToArrange() > 0;
     }
 
+    /**
+     * add cell to the ship being arranged
+     */
     public void addCell(Cell cell) {
         Ship ship = ships.get(numShipsArranged);
 
@@ -51,6 +63,9 @@ public class Player {
             numShipsArranged++;
     }
 
+    /**
+     * @return 1 alive ship didn't finish attacking
+     */
     public boolean canAttack() {
         for (Ship ship : ships)
             if (ship.canAttack())
@@ -58,11 +73,17 @@ public class Player {
         return false;
     }
 
+    /**
+     * let attacking ship attack tapped cell
+     */
     public void attackCell(Cell cell) {
         Ship ship = getNextShipCanAttack();
         ship.attackCell(cell);
     }
 
+    /**
+     * @return next attack will be made by which ship?
+     */
     public Ship getNextShipCanAttack() {
         int index = 0;
         Ship ship;
@@ -73,16 +94,25 @@ public class Player {
         return ship;
     }
 
+    /**
+     * upgrade fleet
+     */
     public void upgrade() {
         for (Ship ship : ships)
             ship.upgrade();
     }
 
+    /**
+     * after done attacking
+     */
     public void resetNumsAttacksMade() {
         for (Ship ship : ships)
             ship.setNumAttacksMade(0);
     }
 
+    /**
+     * @return how many ships in fleet are still alive?
+     */
     public int getNumShipsAlive() {
         int numShipsAlive = 0;
         for (Ship ship : ships)
@@ -91,6 +121,9 @@ public class Player {
         return numShipsAlive;
     }
 
+    /**
+     * @return >= 1 ship still alive
+     */
     public boolean isAlive() {
         return getNumShipsAlive() > 0;
     }
