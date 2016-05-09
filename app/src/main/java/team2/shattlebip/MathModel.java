@@ -184,7 +184,7 @@ public class MathModel {
         MathModel.adapterBoard.notifyDataSetChanged();
     }
 
-    private static void testPlacement() {
+    public static void testPlacement() {
         getEmptyCell();
         //x = 0;
         //y = 0;

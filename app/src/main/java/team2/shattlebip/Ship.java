@@ -75,11 +75,11 @@ public class Ship {
         numAttacksMade++;
     }
 
-    private int getNumUpgradesLeft() {
+    public int getNumUpgradesLeft() {
         return numUpgradesAllowed - numUpgradesMade;
     }
 
-    private boolean canUpgrade() {
+    public boolean canUpgrade() {
         return isAlive() && getNumUpgradesLeft() > 0;
     }
 
