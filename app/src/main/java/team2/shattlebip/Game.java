@@ -126,11 +126,14 @@ public class Game {
             if (cell.getStatus() == Cell.Status.OCCUPIED) {
                 c = c + 1;
                 if (c == 10) {
-                    if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard))) &&
-                            (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard)))) &&
-                            (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard))))) {
-                        return true;
+                    if (((shipArr.checkArrangeLH(adapterBoard)) || (shipArr.checkArrangeLV(adapterBoard)))) {
+                        if (((shipArr.checkArrangeMH(adapterBoard)) || (shipArr.checkArrangeMV(adapterBoard)))) {
+                            if (((shipArr.checkArrangeSH(adapterBoard)) || (shipArr.checkArrangeSV(adapterBoard)))) {
+                                return true;
+                            }
+                        }
                     }
+
                 }
             }
         }
