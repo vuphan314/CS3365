@@ -20,7 +20,7 @@
   - click `VCS`/`Git`/`Branches...`
     - click `Check out Tag or Revision`
       - type `<tag>`
-        - for instance: a `<tag>` is `i4d` (iteration 4 draft)
+        - for instance: a `<tag>` is `i4f` (iteration 4 final)
       - click `OK`
   - click `Run`/`Run 'app'`
   - (popup) `Do you want to uninstall the existing application?`
