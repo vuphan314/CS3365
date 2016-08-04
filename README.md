@@ -1,12 +1,14 @@
+<h6>top
+
 # SHATTLEBIP
 - battleship-like Android game
-- TTU CS-3365-001 Spring '16 project
+- TTU CS-3365-001 2016 Spring project
   - team 2
+    - [Vu](mailto:vu.phan@ttu.edu) (lead)
     - Zach
     - Paul
-    - [Vu](mailto:vu.phan@ttu.edu)
-
-## **INSTALL GUIDE**
+    
+# INSTALL GUIDE
 - in Android Studio
   - click `Check out project from Version Control`
     - click `GitHub`
