@@ -4,11 +4,10 @@
 battleship-like game for Android devices
 
 ## CONTRIBUTORS
-Texas Tech University, 2016 Spring
-- Software Engineering 1, section 1, team 2
-  - [Vu][vuEmail] (lead)
-  - Zach
-  - Paul
+Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
+- [Vu][vuEmail] (lead)
+- Zach
+- Paul
 
 ## LINKS
 - [Kanban board][trello]
