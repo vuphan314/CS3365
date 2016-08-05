@@ -3,13 +3,16 @@
 # SHATTLEBIP
 battleship-like game for Android devices
 
-## LINKS
-- [Demos][youtube]
-- [Kanban board][trello]
-- TTU CS-3365-001 2016-Spring project by team 2
+## CONTRIBUTORS
+Texas Tech University, 2016 Spring
+- Software Engineering 1, section 1, team 2
   - [Vu][vuEmail] (lead)
   - Zach
   - Paul
+
+## LINKS
+- [Kanban board][trello]
+- [Demos][youtube]
 
 ## HOW TO INSTALL
 - in Android Studio
