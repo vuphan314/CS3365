@@ -1,14 +1,13 @@
 <h6>top
 
 # SHATTLEBIP
-- battleship-like Android game
-- TTU CS-3365-001 2016 Spring project
-  - team 2
-    - [Vu](mailto:vu.phan@ttu.edu) (lead)
-    - Zach
-    - Paul
+- battleship-like game for Android devices
+- TTU CS-3365-001 2016 Spring project by team 2
+  - [Vu](mailto:vu.phan@ttu.edu) (lead)
+  - Zach
+  - Paul
     
-# INSTALL GUIDE
+## HOW TO INSTALL
 - in Android Studio
   - click `Check out project from Version Control`
     - click `GitHub`
@@ -27,5 +26,5 @@
   - click `Run`/`Run 'app'`
   - (popup) `Do you want to uninstall the existing application?`
     - click `OK`
-- on device
+- on Android device
   - keep orientation vertical
