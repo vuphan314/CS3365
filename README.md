@@ -36,7 +36,7 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
   - keep orientation vertical
 
 [vuEmail]:
-mailto:vu.phan@ttu.edu
+mailto:vuphan314@gmail.com
 [trello]:
 https://trello.com/b/OTeHkqj2/team2
 [youtube]:
