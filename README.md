@@ -38,6 +38,6 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
 [vuEmail]:
 mailto:vuphan314@gmail.com
 [trello]:
-https://trello.com/b/OTeHkqj2/team2
+https://trello.com/b/OTeHkqj2
 [youtube]:
 https://youtu.be/06hjv4mUBM8?list=PLIJKsTidP3zvZO3sWngEmp3C00R4f19hP
