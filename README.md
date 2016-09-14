@@ -10,8 +10,9 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
 - Paul
 
 ## LINKS
-- [Kanban board][trello]
-- [Demos][youtube]
+- [kanban][trello]
+- [documentation][onedrive]
+- [demo videos][youtube]
 
 ## HOW TO INSTALL
 - in Android Studio
@@ -27,7 +28,7 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
   - click `VCS`/`Git`/`Branches...`
     - click `Check out Tag or Revision`
       - type `<tag>`
-        - for instance: a `<tag>` is `i4f` (iteration 4 final)
+        - for instance: one `<tag>` is `i4f` (iteration 4 final)
       - click `OK`
   - click `Run`/`Run 'app'`
   - (popup) `Do you want to uninstall the existing application?`
@@ -37,9 +38,10 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
 
 [vuEmail]:
 mailto:vuphan314@gmail.com
+
 [trello]:
 https://trello.com/b/OTeHkqj2
 [onedrive]:
-
+https://1drv.ms/f/s!Asl14HFRStFKgYFAR1SWq9zXGTtmYQ
 [youtube]:
 https://youtu.be/06hjv4mUBM8?list=PLIJKsTidP3zvZO3sWngEmp3C00R4f19hP
