@@ -5,9 +5,9 @@ battleship-like game for Android devices
 
 ## CONTRIBUTORS
 Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
-- [Vu][vuEmail] (lead)
-- Zach
-- Paul
+- [Vu Phan][vuCV] (lead)
+- Zachariah Grummons
+- Paul Cho
 
 ## LINKS
 - [kanban][trello]
@@ -36,8 +36,8 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
 - on Android device
   - keep orientation vertical
 
-[vuEmail]:
-mailto:vuphan314@gmail.com
+[vuCV]:
+https://github.com/vuphan314/VU_PHAN/blob/master/README.md#top
 
 [trello]:
 https://trello.com/b/OTeHkqj2
