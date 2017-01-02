@@ -1,7 +1,7 @@
 <h6>top
 
 # SHATTLEBIP
-battleship-like game for Android devices
+Android battleship game
 
 ## CONTRIBUTORS
 Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
