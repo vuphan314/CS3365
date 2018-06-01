@@ -37,7 +37,7 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
   - keep orientation vertical
 
 [vuCV]:
-https://www.myweb.ttu.edu/vuphan/
+https://vuphan314.github.io/
 
 [trello]:
 https://trello.com/b/OTeHkqj2
