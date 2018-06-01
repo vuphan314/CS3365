@@ -18,7 +18,7 @@ Texas Tech University, 2016 Spring: Software Engineering 1, section 1, team 2
 - in Android Studio
   - click `Check out project from Version Control`
     - click `GitHub`
-      - type `https://github.com/vuphan314/CS3365`
+      - type `https://github.com/vuphan314//ShattleBip`
       - click `Clone`
   - (popup) `Would you like to open it?`
     - click `Yes`
